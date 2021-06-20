@@ -1,22 +1,21 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
-[sub_resource type="ProceduralSkyMaterial" id=1]
-sky_top_color = Color(0.568627, 0.698039, 0.807843, 1)
-sky_horizon_color = Color(0.672549, 0.704902, 0.734314, 1)
-ground_bottom_color = Color(0.121569, 0.121569, 0.129412, 1)
-ground_horizon_color = Color(0.672549, 0.704902, 0.734314, 1)
+[sub_resource type="PhysicalSkyMaterial" id=6]
 
 [sub_resource type="Sky" id=2]
-sky_material = SubResource( 1 )
+sky_material = SubResource( 6 )
 
 [sub_resource type="Environment" id=3]
 background_mode = 2
 sky = SubResource( 2 )
 tonemap_mode = 2
+tonemap_white = 6.0
 ssao_enabled = true
 glow_enabled = true
 
 [sub_resource type="SphereMesh" id=4]
+
+[sub_resource type="BoxMesh" id=7]
 
 [sub_resource type="PlaneMesh" id=5]
 size = Vector2(64, 64)
@@ -29,13 +28,26 @@ environment = SubResource( 3 )
 script = null
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+transform = Transform3D(-0.569338, 0.0920953, 0.816929, 0.652575, 0.654995, 0.380956, -0.5, 0.75, -0.433013, 0, 0, 0)
 shadow_enabled = true
+shadow_bias = 0.005
 script = null
 
 [node name="Sphere" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource( 4 )
+surface_material_override/0 = null
+script = null
+
+[node name="Sphere2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+mesh = SubResource( 4 )
+surface_material_override/0 = null
+script = null
+
+[node name="Box" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -0.5, -1)
+mesh = SubResource( 7 )
 surface_material_override/0 = null
 script = null
 
@@ -45,5 +57,5 @@ surface_material_override/0 = null
 script = null
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.769981, -0.182799, 0.611322, 0, 0.958083, 0.286489, -0.638067, -0.220591, 0.737706, 1.91198, 1.9068, 2.45438)
+transform = Transform3D(0.862936, 0.0985631, -0.495608, 0, 0.980792, 0.195053, 0.505314, -0.168318, 0.846361, -3.07766, 0.940564, 3.63301)
 script = null
