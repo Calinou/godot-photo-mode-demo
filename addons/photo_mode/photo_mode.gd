@@ -5,6 +5,7 @@ const SCREENSHOTS_DIR = "user://screenshots"
 
 # Graphics settings to be restored at the end of taking a screenshot.
 var old_msaa := int(ProjectSettings.get_setting("rendering/anti_aliasing/quality/msaa"))
+var old_debanding := int(ProjectSettings.get_setting("rendering/anti_aliasing/quality/use_debanding"))
 var old_shadow_quality := int(ProjectSettings.get_setting("rendering/shadows/directional_shadow/soft_shadow_quality"))
 var old_shadow_size := int(ProjectSettings.get_setting("rendering/shadows/directional_shadow/size"))
 var old_shadow_16_bits := bool(ProjectSettings.get_setting("rendering/shadows/directional_shadow/16_bits"))
@@ -43,12 +44,14 @@ func apply_high_quality_settings() -> void:
 	# 16× MSAA causes various issues and may freeze the system entirely.
 	# Stick to 8× MSAA which looks nearly as good.
 	get_viewport().msaa = Viewport.MSAA_8X
+	get_viewport().use_debanding = true
 
 
 func restore_old_quality_settings() -> void:
 	RenderingServer.directional_shadow_quality_set(old_shadow_quality)
 	RenderingServer.directional_shadow_atlas_set_size(old_shadow_size, old_shadow_16_bits)
 	get_viewport().msaa = old_msaa
+	get_viewport().use_debanding = old_debanding
 
 
 func take_screenshot(high_quality: bool = true) -> void:
@@ -68,6 +71,7 @@ func take_screenshot(high_quality: bool = true) -> void:
 	await get_tree().process_frame
 	await get_tree().process_frame
 
+	# FIXME: Changing the render target clear mode is not needed anymore?
 	#viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ONCE
 	var image: Image = viewport.get_texture().get_image()
 	image.resize(image.get_width() / SUPERSAMPLE_FACTOR, image.get_height() / SUPERSAMPLE_FACTOR, Image.INTERPOLATE_CUBIC)
