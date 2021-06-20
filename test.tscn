@@ -59,3 +59,16 @@ script = null
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.862936, 0.0985631, -0.495608, 0, 0.980792, 0.195053, 0.505314, -0.168318, 0.846361, -3.07766, 0.940564, 3.63301)
 script = null
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.24225, 0.687365, 0.734023)
+light_color = Color(1, 0.258824, 0.470588, 1)
+shadow_enabled = true
+shadow_bias = 0.15
+script = null
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(0.728431, -0.0924482, 0.678853, -0.685119, -0.0982925, 0.721769, 0, -0.990854, -0.134937, -2.42989, 0.86922, -0.250511)
+light_color = Color(0.607843, 1, 0.309804, 1)
+shadow_enabled = true
+script = null

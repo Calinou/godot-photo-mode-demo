@@ -30,26 +30,30 @@ __meta__ = {
 [node name="Label" type="Label" parent="Panel/VBoxContainer"]
 offset_right = 280.0
 offset_bottom = 26.0
+custom_colors/font_color = Color(1, 0.941032, 0.563181, 1)
 text = "Depth of Field"
+align = 1
 structured_text_bidi_override_options = []
 script = null
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
+[node name="NearDistance" type="HBoxContainer" parent="Panel/VBoxContainer"]
 offset_top = 30.0
 offset_right = 280.0
 offset_bottom = 56.0
 script = null
 
-[node name="Label" type="Label" parent="Panel/VBoxContainer/HBoxContainer"]
-offset_right = 95.0
+[node name="Label" type="Label" parent="Panel/VBoxContainer/NearDistance"]
+offset_right = 120.0
 offset_bottom = 26.0
-text = "Far Distance"
+size_flags_horizontal = 3
+text = "Near Distance"
+align = 2
 structured_text_bidi_override_options = []
 script = null
 
-[node name="HSlider" type="HSlider" parent="Panel/VBoxContainer/HBoxContainer"]
-offset_left = 99.0
-offset_right = 280.0
+[node name="HSlider" type="HSlider" parent="Panel/VBoxContainer/NearDistance"]
+offset_left = 124.0
+offset_right = 244.0
 offset_bottom = 16.0
 size_flags_horizontal = 3
 script = null
@@ -57,18 +61,177 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TakeScreenshot" type="Button" parent="Panel/VBoxContainer"]
+[node name="Value" type="Label" parent="Panel/VBoxContainer/NearDistance"]
+offset_left = 248.0
+offset_right = 280.0
+offset_bottom = 26.0
+rect_min_size = Vector2(32, 0)
+text = "10"
+structured_text_bidi_override_options = []
+script = null
+
+[node name="NearTransition" type="HBoxContainer" parent="Panel/VBoxContainer"]
 offset_top = 60.0
 offset_right = 280.0
-offset_bottom = 89.0
+offset_bottom = 86.0
+script = null
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/NearTransition"]
+offset_right = 120.0
+offset_bottom = 26.0
+size_flags_horizontal = 3
+text = "Near Transition"
+align = 2
+structured_text_bidi_override_options = []
+script = null
+
+[node name="HSlider" type="HSlider" parent="Panel/VBoxContainer/NearTransition"]
+offset_left = 124.0
+offset_right = 244.0
+offset_bottom = 16.0
+size_flags_horizontal = 3
+script = null
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Value" type="Label" parent="Panel/VBoxContainer/NearTransition"]
+offset_left = 248.0
+offset_right = 280.0
+offset_bottom = 26.0
+rect_min_size = Vector2(32, 0)
+text = "10"
+structured_text_bidi_override_options = []
+script = null
+
+[node name="FarDistance" type="HBoxContainer" parent="Panel/VBoxContainer"]
+offset_top = 90.0
+offset_right = 280.0
+offset_bottom = 116.0
+script = null
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/FarDistance"]
+offset_right = 120.0
+offset_bottom = 26.0
+size_flags_horizontal = 3
+text = "Far Distance"
+align = 2
+structured_text_bidi_override_options = []
+script = null
+
+[node name="HSlider" type="HSlider" parent="Panel/VBoxContainer/FarDistance"]
+offset_left = 124.0
+offset_right = 244.0
+offset_bottom = 16.0
+size_flags_horizontal = 3
+script = null
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Value" type="Label" parent="Panel/VBoxContainer/FarDistance"]
+offset_left = 248.0
+offset_right = 280.0
+offset_bottom = 26.0
+rect_min_size = Vector2(32, 0)
+text = "10"
+structured_text_bidi_override_options = []
+script = null
+
+[node name="FarTransition" type="HBoxContainer" parent="Panel/VBoxContainer"]
+offset_top = 120.0
+offset_right = 280.0
+offset_bottom = 146.0
+script = null
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/FarTransition"]
+offset_right = 120.0
+offset_bottom = 26.0
+size_flags_horizontal = 3
+text = "Far Transition"
+align = 2
+structured_text_bidi_override_options = []
+script = null
+
+[node name="HSlider" type="HSlider" parent="Panel/VBoxContainer/FarTransition"]
+offset_left = 124.0
+offset_right = 244.0
+offset_bottom = 16.0
+size_flags_horizontal = 3
+script = null
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Value" type="Label" parent="Panel/VBoxContainer/FarTransition"]
+offset_left = 248.0
+offset_right = 280.0
+offset_bottom = 26.0
+rect_min_size = Vector2(32, 0)
+text = "10"
+structured_text_bidi_override_options = []
+script = null
+
+[node name="Amount" type="HBoxContainer" parent="Panel/VBoxContainer"]
+offset_top = 150.0
+offset_right = 280.0
+offset_bottom = 176.0
+script = null
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/Amount"]
+offset_right = 120.0
+offset_bottom = 26.0
+size_flags_horizontal = 3
+text = "Amount"
+align = 2
+structured_text_bidi_override_options = []
+script = null
+
+[node name="HSlider" type="HSlider" parent="Panel/VBoxContainer/Amount"]
+offset_left = 124.0
+offset_right = 244.0
+offset_bottom = 16.0
+size_flags_horizontal = 3
+script = null
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Value" type="Label" parent="Panel/VBoxContainer/Amount"]
+offset_left = 248.0
+offset_right = 280.0
+offset_bottom = 26.0
+rect_min_size = Vector2(32, 0)
+text = "10"
+structured_text_bidi_override_options = []
+script = null
+
+[node name="Spacer" type="Control" parent="Panel/VBoxContainer"]
+offset_top = 180.0
+offset_right = 280.0
+offset_bottom = 500.0
+size_flags_vertical = 3
+script = null
+
+[node name="TakeScreenshot" type="Button" parent="Panel/VBoxContainer"]
+offset_top = 504.0
+offset_right = 280.0
+offset_bottom = 533.0
 size_flags_horizontal = 5
 text = "Take Screenshot"
 script = null
 
-[node name="OpenScreenshotsFolder" type="Button" parent="Panel/VBoxContainer"]
-offset_top = 93.0
+[node name="Spacer2" type="Control" parent="Panel/VBoxContainer"]
+offset_top = 537.0
 offset_right = 280.0
-offset_bottom = 122.0
+offset_bottom = 547.0
+rect_min_size = Vector2(0, 10)
+script = null
+
+[node name="OpenScreenshotsFolder" type="Button" parent="Panel/VBoxContainer"]
+offset_top = 551.0
+offset_right = 280.0
+offset_bottom = 580.0
 text = "Open Screenshots Folder"
 script = null
 
