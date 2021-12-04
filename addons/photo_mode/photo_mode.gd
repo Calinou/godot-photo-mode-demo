@@ -5,6 +5,7 @@ const SCREENSHOTS_DIR = "user://screenshots"
 
 # Graphics settings to be restored at the end of taking a screenshot.
 var old_msaa := int(ProjectSettings.get_setting("rendering/anti_aliasing/quality/msaa"))
+var old_3d_scale := float(ProjectSettings.get_setting("rendering/scaling_3d/scale"))
 var old_debanding := int(ProjectSettings.get_setting("rendering/anti_aliasing/quality/use_debanding"))
 var old_shadow_quality := int(ProjectSettings.get_setting("rendering/shadows/directional_shadow/soft_shadow_quality"))
 var old_shadow_size := int(ProjectSettings.get_setting("rendering/shadows/directional_shadow/size"))
@@ -59,10 +60,9 @@ func take_screenshot(high_quality: bool = true) -> void:
 	
 	# Perform super-sample antialiasing by rendering at a higher resolution, then downscaling the final image.
 	# Unlike MSAA, this smooths out things such as specular aliasing.
-	# FIXME: Window size changes when increasing viewport size, which looks strange
-	# and doesn't work in fullscreen.
-	const SUPERSAMPLE_FACTOR = 1
-	viewport.size *= SUPERSAMPLE_FACTOR
+	# Values above 2.0 have no effect.
+	const SUPERSAMPLE_FACTOR = 2.0
+	viewport.scaling_3d_scale = SUPERSAMPLE_FACTOR
 	
 	if high_quality:
 		apply_high_quality_settings()
@@ -74,13 +74,12 @@ func take_screenshot(high_quality: bool = true) -> void:
 	# FIXME: Changing the render target clear mode is not needed anymore?
 	#viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ONCE
 	var image: Image = viewport.get_texture().get_image()
-	image.resize(image.get_width() / SUPERSAMPLE_FACTOR, image.get_height() / SUPERSAMPLE_FACTOR, Image.INTERPOLATE_CUBIC)
 	#viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ALWAYS
 	
 	if high_quality:
 		restore_old_quality_settings()
 	
-	viewport.size /= SUPERSAMPLE_FACTOR
+	viewport.scaling_3d_scale = old_3d_scale
 
 	# Screenshot file name with ISO 8601-like date.
 	var datetime := Time.get_datetime_dict_from_system()
