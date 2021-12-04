@@ -1,74 +1,62 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=7 format=3 uid="uid://b2uti71qgctof"]
 
-[sub_resource type="PhysicalSkyMaterial" id=6]
+[sub_resource type="PhysicalSkyMaterial" id="6"]
 
-[sub_resource type="Sky" id=2]
-sky_material = SubResource( 6 )
+[sub_resource type="Sky" id="2"]
+sky_material = SubResource( "6" )
 
-[sub_resource type="Environment" id=3]
+[sub_resource type="Environment" id="3"]
 background_mode = 2
-sky = SubResource( 2 )
+sky = SubResource( "2" )
 tonemap_mode = 2
 tonemap_white = 6.0
 ssao_enabled = true
 glow_enabled = true
 
-[sub_resource type="SphereMesh" id=4]
+[sub_resource type="SphereMesh" id="4"]
 
-[sub_resource type="BoxMesh" id=7]
+[sub_resource type="BoxMesh" id="7"]
 
-[sub_resource type="PlaneMesh" id=5]
+[sub_resource type="PlaneMesh" id="5"]
 size = Vector2(64, 64)
 
 [node name="Node3D" type="Node3D"]
-script = null
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 3 )
-script = null
+environment = SubResource( "3" )
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.569338, 0.0920953, 0.816929, 0.652575, 0.654995, 0.380956, -0.5, 0.75, -0.433013, 0, 0, 0)
 shadow_enabled = true
-shadow_bias = 0.005
-script = null
+shadow_bias = 0.05
+shadow_normal_bias = 2.0
 
 [node name="Sphere" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource( 4 )
-surface_material_override/0 = null
-script = null
+mesh = SubResource( "4" )
 
 [node name="Sphere2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
-mesh = SubResource( 4 )
-surface_material_override/0 = null
-script = null
+mesh = SubResource( "4" )
 
 [node name="Box" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -0.5, -1)
-mesh = SubResource( 7 )
-surface_material_override/0 = null
-script = null
+mesh = SubResource( "7" )
 
 [node name="Ground" type="MeshInstance3D" parent="."]
-mesh = SubResource( 5 )
-surface_material_override/0 = null
-script = null
+mesh = SubResource( "5" )
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.862936, 0.0985631, -0.495608, 0, 0.980792, 0.195053, 0.505314, -0.168318, 0.846361, -3.07766, 0.940564, 3.63301)
-script = null
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.24225, 0.687365, 0.734023)
 light_color = Color(1, 0.258824, 0.470588, 1)
 shadow_enabled = true
-shadow_bias = 0.15
-script = null
+shadow_bias = 0.02
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
 transform = Transform3D(0.728431, -0.0924482, 0.678853, -0.685119, -0.0982925, 0.721769, 0, -0.990854, -0.134937, -2.42989, 0.86922, -0.250511)
 light_color = Color(0.607843, 1, 0.309804, 1)
 shadow_enabled = true
-script = null
+shadow_bias = 0.02

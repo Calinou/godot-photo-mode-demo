@@ -6,11 +6,12 @@
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
 
-config_version=4
+config_version=5
 
 [application]
 
 run/main_scene="res://test.tscn"
+config/features=PackedStringArray("4.0")
 
 [autoload]
 
