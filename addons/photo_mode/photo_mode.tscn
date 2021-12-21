@@ -25,24 +25,25 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Panel/VBoxContainer"]
+[node name="DepthOfField" type="Label" parent="Panel/VBoxContainer"]
 offset_right = 280.0
 offset_bottom = 26.0
 theme_override_colors/font_color = Color(1, 0.941032, 0.563181, 1)
+theme_override_font_sizes/font_size = 16
 text = "Depth of Field"
 
-[node name="NearDistance" type="HBoxContainer" parent="Panel/VBoxContainer"]
+[node name="DOFNearDistance" type="HBoxContainer" parent="Panel/VBoxContainer"]
 offset_top = 30.0
 offset_right = 280.0
 offset_bottom = 56.0
 
-[node name="Label" type="Label" parent="Panel/VBoxContainer/NearDistance"]
+[node name="Label" type="Label" parent="Panel/VBoxContainer/DOFNearDistance"]
 offset_right = 120.0
 offset_bottom = 26.0
 size_flags_horizontal = 3
 text = "Near Distance"
 
-[node name="HSlider" type="HSlider" parent="Panel/VBoxContainer/NearDistance"]
+[node name="HSlider" type="HSlider" parent="Panel/VBoxContainer/DOFNearDistance"]
 offset_left = 124.0
 offset_right = 244.0
 offset_bottom = 16.0
@@ -51,25 +52,25 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Value" type="Label" parent="Panel/VBoxContainer/NearDistance"]
+[node name="Value" type="Label" parent="Panel/VBoxContainer/DOFNearDistance"]
 offset_left = 248.0
 offset_right = 280.0
 offset_bottom = 26.0
 rect_min_size = Vector2(32, 0)
 text = "10"
 
-[node name="NearTransition" type="HBoxContainer" parent="Panel/VBoxContainer"]
+[node name="DOFNearTransition" type="HBoxContainer" parent="Panel/VBoxContainer"]
 offset_top = 60.0
 offset_right = 280.0
 offset_bottom = 86.0
 
-[node name="Label" type="Label" parent="Panel/VBoxContainer/NearTransition"]
+[node name="Label" type="Label" parent="Panel/VBoxContainer/DOFNearTransition"]
 offset_right = 120.0
 offset_bottom = 26.0
 size_flags_horizontal = 3
 text = "Near Transition"
 
-[node name="HSlider" type="HSlider" parent="Panel/VBoxContainer/NearTransition"]
+[node name="HSlider" type="HSlider" parent="Panel/VBoxContainer/DOFNearTransition"]
 offset_left = 124.0
 offset_right = 244.0
 offset_bottom = 16.0
@@ -78,25 +79,25 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Value" type="Label" parent="Panel/VBoxContainer/NearTransition"]
+[node name="Value" type="Label" parent="Panel/VBoxContainer/DOFNearTransition"]
 offset_left = 248.0
 offset_right = 280.0
 offset_bottom = 26.0
 rect_min_size = Vector2(32, 0)
 text = "10"
 
-[node name="FarDistance" type="HBoxContainer" parent="Panel/VBoxContainer"]
+[node name="DOFFarDistance" type="HBoxContainer" parent="Panel/VBoxContainer"]
 offset_top = 90.0
 offset_right = 280.0
 offset_bottom = 116.0
 
-[node name="Label" type="Label" parent="Panel/VBoxContainer/FarDistance"]
+[node name="Label" type="Label" parent="Panel/VBoxContainer/DOFFarDistance"]
 offset_right = 120.0
 offset_bottom = 26.0
 size_flags_horizontal = 3
 text = "Far Distance"
 
-[node name="HSlider" type="HSlider" parent="Panel/VBoxContainer/FarDistance"]
+[node name="HSlider" type="HSlider" parent="Panel/VBoxContainer/DOFFarDistance"]
 offset_left = 124.0
 offset_right = 244.0
 offset_bottom = 16.0
@@ -105,25 +106,25 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Value" type="Label" parent="Panel/VBoxContainer/FarDistance"]
+[node name="Value" type="Label" parent="Panel/VBoxContainer/DOFFarDistance"]
 offset_left = 248.0
 offset_right = 280.0
 offset_bottom = 26.0
 rect_min_size = Vector2(32, 0)
 text = "10"
 
-[node name="FarTransition" type="HBoxContainer" parent="Panel/VBoxContainer"]
+[node name="DOFFarTransition" type="HBoxContainer" parent="Panel/VBoxContainer"]
 offset_top = 120.0
 offset_right = 280.0
 offset_bottom = 146.0
 
-[node name="Label" type="Label" parent="Panel/VBoxContainer/FarTransition"]
+[node name="Label" type="Label" parent="Panel/VBoxContainer/DOFFarTransition"]
 offset_right = 120.0
 offset_bottom = 26.0
 size_flags_horizontal = 3
 text = "Far Transition"
 
-[node name="HSlider" type="HSlider" parent="Panel/VBoxContainer/FarTransition"]
+[node name="HSlider" type="HSlider" parent="Panel/VBoxContainer/DOFFarTransition"]
 offset_left = 124.0
 offset_right = 244.0
 offset_bottom = 16.0
@@ -132,25 +133,25 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Value" type="Label" parent="Panel/VBoxContainer/FarTransition"]
+[node name="Value" type="Label" parent="Panel/VBoxContainer/DOFFarTransition"]
 offset_left = 248.0
 offset_right = 280.0
 offset_bottom = 26.0
 rect_min_size = Vector2(32, 0)
 text = "10"
 
-[node name="Amount" type="HBoxContainer" parent="Panel/VBoxContainer"]
+[node name="DOFAmount" type="HBoxContainer" parent="Panel/VBoxContainer"]
 offset_top = 150.0
 offset_right = 280.0
 offset_bottom = 176.0
 
-[node name="Label" type="Label" parent="Panel/VBoxContainer/Amount"]
+[node name="Label" type="Label" parent="Panel/VBoxContainer/DOFAmount"]
 offset_right = 120.0
 offset_bottom = 26.0
 size_flags_horizontal = 3
 text = "Amount"
 
-[node name="HSlider" type="HSlider" parent="Panel/VBoxContainer/Amount"]
+[node name="HSlider" type="HSlider" parent="Panel/VBoxContainer/DOFAmount"]
 offset_left = 124.0
 offset_right = 244.0
 offset_bottom = 16.0
@@ -159,7 +160,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Value" type="Label" parent="Panel/VBoxContainer/Amount"]
+[node name="Value" type="Label" parent="Panel/VBoxContainer/DOFAmount"]
 offset_left = 248.0
 offset_right = 280.0
 offset_bottom = 26.0

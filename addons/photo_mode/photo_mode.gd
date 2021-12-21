@@ -20,9 +20,12 @@ var old_directional_shadow_quality := int(ProjectSettings.get_setting("rendering
 var old_directional_shadow_size := int(ProjectSettings.get_setting("rendering/shadows/directional_shadow/size"))
 var old_directional_shadow_16_bits := bool(ProjectSettings.get_setting("rendering/shadows/directional_shadow/16_bits"))
 
-var old_point_shadow_quality := bool(ProjectSettings.get_setting("rendering/shadows/shadows/soft_shadow_quality"))
-var old_point_shadow_size := bool(ProjectSettings.get_setting("rendering/shadows/shadow_atlas/size"))
+var old_point_shadow_quality := int(ProjectSettings.get_setting("rendering/shadows/shadows/soft_shadow_quality"))
+var old_point_shadow_size := int(ProjectSettings.get_setting("rendering/shadows/shadow_atlas/size"))
 var old_point_shadow_16_bits := bool(ProjectSettings.get_setting("rendering/shadows/shadow_atlas/16_bits"))
+
+var old_glow_upscale_mode := int(ProjectSettings.get_setting("rendering/environment/glow/upscale_mode"))
+var old_glow_high_quality := bool(ProjectSettings.get_setting("rendering/environment/glow/use_high_quality"))
 
 var old_ssr_quality := int(ProjectSettings.get_setting("rendering/environment/screen_space_reflection/roughness_quality"))
 @onready var old_env_ssr_max_steps: int = environment.ss_reflections_max_steps
@@ -92,6 +95,8 @@ func apply_high_quality_settings() -> void:
 	RenderingServer.viewport_set_shadow_atlas_size(get_viewport(), 8192, false)	
 
 	# Increase post-processing effects quality.
+	RenderingServer.environment_glow_set_use_bicubic_upscale(true)
+	RenderingServer.environment_glow_set_use_high_quality(true)
 	RenderingServer.environment_set_ssr_roughness_quality(RenderingServer.ENV_SSR_ROUGNESS_QUALITY_HIGH)
 	# Screen-space reflections' length is resolution-dependent, so adjust the number of steps to compensate.
 	environment.ss_reflections_max_steps *= SUPERSAMPLE_FACTOR
@@ -112,6 +117,8 @@ func restore_old_quality_settings() -> void:
 	RenderingServer.viewport_set_shadow_atlas_size(get_viewport(), old_point_shadow_size, old_point_shadow_16_bits)
 
 	# Restore original post-processing effects quality.
+	RenderingServer.environment_glow_set_use_bicubic_upscale(old_glow_upscale_mode)
+	RenderingServer.environment_glow_set_use_high_quality(old_glow_high_quality)
 	RenderingServer.environment_set_ssr_roughness_quality(old_ssr_quality)
 	environment.ss_reflections_max_steps = old_env_ssr_max_steps
 	
