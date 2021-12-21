@@ -30,7 +30,6 @@ offset_right = 280.0
 offset_bottom = 26.0
 theme_override_colors/font_color = Color(1, 0.941032, 0.563181, 1)
 text = "Depth of Field"
-align = 1
 
 [node name="NearDistance" type="HBoxContainer" parent="Panel/VBoxContainer"]
 offset_top = 30.0
@@ -42,7 +41,6 @@ offset_right = 120.0
 offset_bottom = 26.0
 size_flags_horizontal = 3
 text = "Near Distance"
-align = 2
 
 [node name="HSlider" type="HSlider" parent="Panel/VBoxContainer/NearDistance"]
 offset_left = 124.0
@@ -70,7 +68,6 @@ offset_right = 120.0
 offset_bottom = 26.0
 size_flags_horizontal = 3
 text = "Near Transition"
-align = 2
 
 [node name="HSlider" type="HSlider" parent="Panel/VBoxContainer/NearTransition"]
 offset_left = 124.0
@@ -98,7 +95,6 @@ offset_right = 120.0
 offset_bottom = 26.0
 size_flags_horizontal = 3
 text = "Far Distance"
-align = 2
 
 [node name="HSlider" type="HSlider" parent="Panel/VBoxContainer/FarDistance"]
 offset_left = 124.0
@@ -126,7 +122,6 @@ offset_right = 120.0
 offset_bottom = 26.0
 size_flags_horizontal = 3
 text = "Far Transition"
-align = 2
 
 [node name="HSlider" type="HSlider" parent="Panel/VBoxContainer/FarTransition"]
 offset_left = 124.0
@@ -154,7 +149,6 @@ offset_right = 120.0
 offset_bottom = 26.0
 size_flags_horizontal = 3
 text = "Amount"
-align = 2
 
 [node name="HSlider" type="HSlider" parent="Panel/VBoxContainer/Amount"]
 offset_left = 124.0

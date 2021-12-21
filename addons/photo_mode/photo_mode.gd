@@ -3,16 +3,41 @@ extends Control
 ## Path to the folder where screenshots are saved.
 const SCREENSHOTS_DIR = "user://screenshots"
 
+## Perform super-sample antialiasing by rendering at a higher resolution, then downscaling the final image.
+## Unlike MSAA, this also smooths out things such as specular aliasing and shader-induced aliasing.
+## Values above 2.0 have no effect.
+const SUPERSAMPLE_FACTOR = 2.0
+
+@onready var environment = get_viewport().world_3d.environment
+
 # Graphics settings to be restored at the end of taking a screenshot.
+
 var old_msaa := int(ProjectSettings.get_setting("rendering/anti_aliasing/quality/msaa"))
 var old_3d_scale := float(ProjectSettings.get_setting("rendering/scaling_3d/scale"))
 var old_debanding := int(ProjectSettings.get_setting("rendering/anti_aliasing/quality/use_debanding"))
-var old_shadow_quality := int(ProjectSettings.get_setting("rendering/shadows/directional_shadow/soft_shadow_quality"))
-var old_shadow_size := int(ProjectSettings.get_setting("rendering/shadows/directional_shadow/size"))
-var old_shadow_16_bits := bool(ProjectSettings.get_setting("rendering/shadows/directional_shadow/16_bits"))
+
+var old_directional_shadow_quality := int(ProjectSettings.get_setting("rendering/shadows/directional_shadow/soft_shadow_quality"))
+var old_directional_shadow_size := int(ProjectSettings.get_setting("rendering/shadows/directional_shadow/size"))
+var old_directional_shadow_16_bits := bool(ProjectSettings.get_setting("rendering/shadows/directional_shadow/16_bits"))
+
+var old_point_shadow_quality := bool(ProjectSettings.get_setting("rendering/shadows/shadows/soft_shadow_quality"))
+var old_point_shadow_size := bool(ProjectSettings.get_setting("rendering/shadows/shadow_atlas/size"))
+var old_point_shadow_16_bits := bool(ProjectSettings.get_setting("rendering/shadows/shadow_atlas/16_bits"))
+
+var old_ssr_quality := int(ProjectSettings.get_setting("rendering/environment/screen_space_reflection/roughness_quality"))
+@onready var old_env_ssr_max_steps: int = environment.ss_reflections_max_steps
+
 # TODO: Requires RenderingServer SSAO quality methods to be exposed.
 var old_ssao_quality := int(ProjectSettings.get_setting("rendering/environment/ssao/quality"))
 var old_ssao_adaptive_target := float(ProjectSettings.get_setting("rendering/environment/ssao/adaptive_target"))
+
+# TODO: Requires RenderingServer GI half resolution method to be exposed.
+var old_gi_use_half_resolution := int(ProjectSettings.get_setting("rendering/global_illumination/gi/use_half_resolution"))
+
+var old_sdfgi_probe_ray_count := int(ProjectSettings.get_setting("rendering/global_illumination/sdfgi/probe_ray_count"))
+var old_sdfgi_frames_to_converge := int(ProjectSettings.get_setting("rendering/global_illumination/sdfgi/frames_to_converge"))
+@onready var old_env_sdfgi_num_cascades: RenderingServer.EnvironmentSDFGICascades = environment.sdfgi_cascades
+@onready var old_env_sdfgi_min_cell_size: float = environment.sdfgi_min_cell_size
 
 
 func _ready() -> void:
@@ -39,18 +64,56 @@ func _input(event: InputEvent) -> void:
 		await take_screenshot(true)
 
 
+## Increase global illumination quality for offline rendering.
+## SDFGI settings are applied separately because they require waiting for some frames
+### after they have been set to be fully converged.
+func apply_high_quality_sdfgi_settings() -> void:
+	# We supersample only after SDFGI has fully converged to allow it to converge as fast as possible.
+	RenderingServer.environment_set_sdfgi_ray_count(RenderingServer.ENV_SDFGI_RAY_COUNT_128)
+	RenderingServer.environment_set_sdfgi_frames_to_converge(RenderingServer.ENV_SDFGI_CONVERGE_IN_30_FRAMES)
+	environment.sdfgi_cascades = Environment.SDFGI_CASCADES_8
+	# Higher number of cascades makes it possible to decrease the cell size without compromising on maximum distance.
+	# This improves GI quality for smaller objects.
+	environment.sdfgi_min_cell_size *= 0.25
+
+
+## Increase rendering quality settings for offline rendering.
 func apply_high_quality_settings() -> void:
-	RenderingServer.directional_shadow_quality_set(RenderingServer.SHADOW_QUALITY_SOFT_ULTRA)
+	# Use high-resolution 24-bit shadows.
+	# 16K shadows are technically supported, but tend to require too much memory when supersampling.
+	# Therefore, 8K shadows are used instead.
+	RenderingServer.directional_shadow_quality_set(RenderingServer.SHADOW_QUALITY_SOFT_ULTRA)	
 	RenderingServer.directional_shadow_atlas_set_size(8192, false)
-	# 16× MSAA causes various issues and may freeze the system entirely.
-	# Stick to 8× MSAA which looks nearly as good.
+	RenderingServer.shadows_quality_set(RenderingServer.SHADOW_QUALITY_SOFT_ULTRA)
+	RenderingServer.viewport_set_shadow_atlas_size(get_viewport(), 8192, false)	
+
+	# Increase post-processing effects quality.
+	RenderingServer.environment_set_ssr_roughness_quality(RenderingServer.ENV_SSR_ROUGNESS_QUALITY_HIGH)
+	# Screen-space reflections' length is resolution-dependent, so adjust the number of steps to compensate.
+	environment.ss_reflections_max_steps *= SUPERSAMPLE_FACTOR
+
 	get_viewport().msaa = Viewport.MSAA_8X
 	get_viewport().use_debanding = true
 
 
+## Restore original quality settings (both SDFGI and other settings).
 func restore_old_quality_settings() -> void:
-	RenderingServer.directional_shadow_quality_set(old_shadow_quality)
-	RenderingServer.directional_shadow_atlas_set_size(old_shadow_size, old_shadow_16_bits)
+	# Restore original shadow quality.
+	RenderingServer.directional_shadow_quality_set(old_directional_shadow_quality)
+	RenderingServer.directional_shadow_atlas_set_size(old_directional_shadow_size, old_directional_shadow_16_bits)
+	RenderingServer.shadows_quality_set(old_point_shadow_quality)
+	RenderingServer.viewport_set_shadow_atlas_size(get_viewport(), old_point_shadow_size, old_point_shadow_16_bits)
+
+	# Restore original post-processing effects quality.
+	RenderingServer.environment_set_ssr_roughness_quality(old_ssr_quality)
+	environment.ss_reflections_max_steps = old_env_ssr_max_steps
+	
+	# Restore original global illumination quality.
+	RenderingServer.environment_set_sdfgi_ray_count(RenderingServer.ENV_SDFGI_RAY_COUNT_128)
+	RenderingServer.environment_set_sdfgi_frames_to_converge(RenderingServer.ENV_SDFGI_CONVERGE_IN_30_FRAMES)
+	environment.sdfgi_cascades = old_env_sdfgi_num_cascades
+	environment.sdfgi_min_cell_size = old_env_sdfgi_min_cell_size
+
 	get_viewport().msaa = old_msaa
 	get_viewport().use_debanding = old_debanding
 
@@ -58,26 +121,35 @@ func restore_old_quality_settings() -> void:
 func take_screenshot(high_quality: bool = true) -> void:
 	var viewport := get_viewport()
 	
-	# Perform super-sample antialiasing by rendering at a higher resolution, then downscaling the final image.
-	# Unlike MSAA, this smooths out things such as specular aliasing.
-	# Values above 2.0 have no effect.
-	const SUPERSAMPLE_FACTOR = 2.0
+	if high_quality and environment.sdfgi_enabled:
+		apply_high_quality_sdfgi_settings()
+		# Downscale rendering to make it happen as fast as possible, which makes SDFGI converge faster.
+		viewport.scaling_3d_scale = 0.25
+		
+		for i in 30:
+			# Wait for SDFGI to fully converge.
+			# Do this before enabling supersampling to make SDFGI converge faster.
+			await get_tree().process_frame
+	
 	viewport.scaling_3d_scale = SUPERSAMPLE_FACTOR
 	
 	if high_quality:
 		apply_high_quality_settings()
 
+	# Hide photo mode HUD so that it's not present on the screenshot.
+	visible = false
+
 	# Wait some frames to get an up-to-date screenshot.
 	await get_tree().process_frame
 	await get_tree().process_frame
 
-	# FIXME: Changing the render target clear mode is not needed anymore?
-	#viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ONCE
 	var image: Image = viewport.get_texture().get_image()
-	#viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ALWAYS
 	
 	if high_quality:
 		restore_old_quality_settings()
+	
+	# Restore photo mode HUD after taking the screenshot.
+	visible = true
 	
 	viewport.scaling_3d_scale = old_3d_scale
 

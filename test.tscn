@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b2uti71qgctof"]
+[gd_scene load_steps=8 format=3 uid="uid://b2uti71qgctof"]
 
 [sub_resource type="PhysicalSkyMaterial" id="6"]
 
@@ -10,12 +10,19 @@ background_mode = 2
 sky = SubResource( "2" )
 tonemap_mode = 2
 tonemap_white = 6.0
+ss_reflections_enabled = true
 ssao_enabled = true
+sdfgi_enabled = true
+sdfgi_read_sky_light = true
 glow_enabled = true
 
 [sub_resource type="SphereMesh" id="4"]
 
 [sub_resource type="BoxMesh" id="7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_41hiw"]
+metallic = 1.0
+roughness = 0.0
 
 [sub_resource type="PlaneMesh" id="5"]
 size = Vector2(64, 64)
@@ -28,26 +35,33 @@ environment = SubResource( "3" )
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.569338, 0.0920953, 0.816929, 0.652575, 0.654995, 0.380956, -0.5, 0.75, -0.433013, 0, 0, 0)
 shadow_enabled = true
-shadow_bias = 0.05
 shadow_normal_bias = 2.0
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.862936, 0.098563, -0.495608, 0, 0.980793, 0.195053, 0.505314, -0.168318, 0.846361, -3.07766, 0.940564, 3.63301)
 
 [node name="Sphere" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+gi_mode = 1
 mesh = SubResource( "4" )
+surface_material_override/0 = null
 
 [node name="Sphere2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+gi_mode = 1
 mesh = SubResource( "4" )
+surface_material_override/0 = null
 
 [node name="Box" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -0.5, -1)
+gi_mode = 1
 mesh = SubResource( "7" )
+surface_material_override/0 = SubResource( "StandardMaterial3D_41hiw" )
 
 [node name="Ground" type="MeshInstance3D" parent="."]
+gi_mode = 1
 mesh = SubResource( "5" )
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.862936, 0.0985631, -0.495608, 0, 0.980792, 0.195053, 0.505314, -0.168318, 0.846361, -3.07766, 0.940564, 3.63301)
+surface_material_override/0 = null
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.24225, 0.687365, 0.734023)
