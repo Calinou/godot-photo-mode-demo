@@ -11,8 +11,12 @@ __meta__ = {
 }
 
 [node name="Panel" type="Panel" parent="."]
+self_modulate = Color(1, 1, 1, 0.501961)
 anchor_bottom = 1.0
 rect_min_size = Vector2(300, 0)
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
 anchor_right = 1.0
@@ -32,10 +36,16 @@ theme_override_colors/font_color = Color(1, 0.941032, 0.563181, 1)
 theme_override_font_sizes/font_size = 16
 text = "Depth of Field"
 
-[node name="DOFNearDistance" type="HBoxContainer" parent="Panel/VBoxContainer"]
+[node name="DOFNearEnabled" type="CheckButton" parent="Panel/VBoxContainer"]
 offset_top = 30.0
 offset_right = 280.0
-offset_bottom = 56.0
+offset_bottom = 70.0
+text = "Near Enabled"
+
+[node name="DOFNearDistance" type="HBoxContainer" parent="Panel/VBoxContainer"]
+offset_top = 74.0
+offset_right = 280.0
+offset_bottom = 100.0
 
 [node name="Label" type="Label" parent="Panel/VBoxContainer/DOFNearDistance"]
 offset_right = 120.0
@@ -48,6 +58,10 @@ offset_left = 124.0
 offset_right = 244.0
 offset_bottom = 16.0
 size_flags_horizontal = 3
+min_value = 0.01
+max_value = 250.0
+step = 0.1
+value = 5.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -57,12 +71,12 @@ offset_left = 248.0
 offset_right = 280.0
 offset_bottom = 26.0
 rect_min_size = Vector2(32, 0)
-text = "10"
+text = "5"
 
 [node name="DOFNearTransition" type="HBoxContainer" parent="Panel/VBoxContainer"]
-offset_top = 60.0
+offset_top = 104.0
 offset_right = 280.0
-offset_bottom = 86.0
+offset_bottom = 130.0
 
 [node name="Label" type="Label" parent="Panel/VBoxContainer/DOFNearTransition"]
 offset_right = 120.0
@@ -75,6 +89,9 @@ offset_left = 124.0
 offset_right = 244.0
 offset_bottom = 16.0
 size_flags_horizontal = 3
+min_value = 0.01
+step = 0.1
+value = 5.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -84,12 +101,18 @@ offset_left = 248.0
 offset_right = 280.0
 offset_bottom = 26.0
 rect_min_size = Vector2(32, 0)
-text = "10"
+text = "5"
+
+[node name="DOFFarEnabled" type="CheckButton" parent="Panel/VBoxContainer"]
+offset_top = 134.0
+offset_right = 280.0
+offset_bottom = 174.0
+text = "Far Enabled"
 
 [node name="DOFFarDistance" type="HBoxContainer" parent="Panel/VBoxContainer"]
-offset_top = 90.0
+offset_top = 178.0
 offset_right = 280.0
-offset_bottom = 116.0
+offset_bottom = 204.0
 
 [node name="Label" type="Label" parent="Panel/VBoxContainer/DOFFarDistance"]
 offset_right = 120.0
@@ -102,6 +125,10 @@ offset_left = 124.0
 offset_right = 244.0
 offset_bottom = 16.0
 size_flags_horizontal = 3
+min_value = 0.01
+max_value = 250.0
+step = 0.1
+value = 30.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -111,12 +138,12 @@ offset_left = 248.0
 offset_right = 280.0
 offset_bottom = 26.0
 rect_min_size = Vector2(32, 0)
-text = "10"
+text = "30"
 
 [node name="DOFFarTransition" type="HBoxContainer" parent="Panel/VBoxContainer"]
-offset_top = 120.0
+offset_top = 208.0
 offset_right = 280.0
-offset_bottom = 146.0
+offset_bottom = 234.0
 
 [node name="Label" type="Label" parent="Panel/VBoxContainer/DOFFarTransition"]
 offset_right = 120.0
@@ -129,6 +156,9 @@ offset_left = 124.0
 offset_right = 244.0
 offset_bottom = 16.0
 size_flags_horizontal = 3
+min_value = 0.01
+step = 0.1
+value = 15.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -138,12 +168,12 @@ offset_left = 248.0
 offset_right = 280.0
 offset_bottom = 26.0
 rect_min_size = Vector2(32, 0)
-text = "10"
+text = "15"
 
 [node name="DOFAmount" type="HBoxContainer" parent="Panel/VBoxContainer"]
-offset_top = 150.0
+offset_top = 238.0
 offset_right = 280.0
-offset_bottom = 176.0
+offset_bottom = 264.0
 
 [node name="Label" type="Label" parent="Panel/VBoxContainer/DOFAmount"]
 offset_right = 120.0
@@ -156,6 +186,9 @@ offset_left = 124.0
 offset_right = 244.0
 offset_bottom = 16.0
 size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+value = 0.1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -165,10 +198,119 @@ offset_left = 248.0
 offset_right = 280.0
 offset_bottom = 26.0
 rect_min_size = Vector2(32, 0)
-text = "10"
+text = "0.1"
+
+[node name="HSeparator3" type="HSeparator" parent="Panel/VBoxContainer"]
+offset_top = 268.0
+offset_right = 280.0
+offset_bottom = 272.0
+
+[node name="Adjustments" type="Label" parent="Panel/VBoxContainer"]
+offset_top = 276.0
+offset_right = 280.0
+offset_bottom = 302.0
+theme_override_colors/font_color = Color(1, 0.941032, 0.563181, 1)
+theme_override_font_sizes/font_size = 16
+text = "Adjustments"
+
+[node name="AdjustmentsBrightness" type="HBoxContainer" parent="Panel/VBoxContainer"]
+offset_top = 306.0
+offset_right = 280.0
+offset_bottom = 332.0
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/AdjustmentsBrightness"]
+offset_right = 120.0
+offset_bottom = 26.0
+size_flags_horizontal = 3
+text = "Brightness"
+
+[node name="HSlider" type="HSlider" parent="Panel/VBoxContainer/AdjustmentsBrightness"]
+offset_left = 124.0
+offset_right = 244.0
+offset_bottom = 16.0
+size_flags_horizontal = 3
+max_value = 8.0
+step = 0.01
+value = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Value" type="Label" parent="Panel/VBoxContainer/AdjustmentsBrightness"]
+offset_left = 248.0
+offset_right = 280.0
+offset_bottom = 26.0
+rect_min_size = Vector2(32, 0)
+text = "1"
+
+[node name="AdjustmentsContrast" type="HBoxContainer" parent="Panel/VBoxContainer"]
+offset_top = 336.0
+offset_right = 280.0
+offset_bottom = 362.0
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/AdjustmentsContrast"]
+offset_right = 120.0
+offset_bottom = 26.0
+size_flags_horizontal = 3
+text = "Contrast"
+
+[node name="HSlider" type="HSlider" parent="Panel/VBoxContainer/AdjustmentsContrast"]
+offset_left = 124.0
+offset_right = 244.0
+offset_bottom = 16.0
+size_flags_horizontal = 3
+max_value = 8.0
+step = 0.01
+value = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Value" type="Label" parent="Panel/VBoxContainer/AdjustmentsContrast"]
+offset_left = 248.0
+offset_right = 280.0
+offset_bottom = 26.0
+rect_min_size = Vector2(32, 0)
+text = "1"
+
+[node name="AdjustmentsSaturation" type="HBoxContainer" parent="Panel/VBoxContainer"]
+offset_top = 366.0
+offset_right = 280.0
+offset_bottom = 392.0
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/AdjustmentsSaturation"]
+offset_right = 120.0
+offset_bottom = 26.0
+size_flags_horizontal = 3
+text = "Saturation"
+
+[node name="HSlider" type="HSlider" parent="Panel/VBoxContainer/AdjustmentsSaturation"]
+offset_left = 124.0
+offset_right = 244.0
+offset_bottom = 16.0
+size_flags_horizontal = 3
+max_value = 8.0
+step = 0.01
+value = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Value" type="Label" parent="Panel/VBoxContainer/AdjustmentsSaturation"]
+offset_left = 248.0
+offset_right = 280.0
+offset_bottom = 26.0
+rect_min_size = Vector2(32, 0)
+text = "1"
+
+[node name="ResetToDefaults" type="Button" parent="Panel/VBoxContainer"]
+offset_top = 396.0
+offset_right = 280.0
+offset_bottom = 425.0
+text = "Reset to Defaults"
 
 [node name="Spacer" type="Control" parent="Panel/VBoxContainer"]
-offset_top = 180.0
+offset_top = 429.0
 offset_right = 280.0
 offset_bottom = 500.0
 size_flags_vertical = 3
@@ -192,5 +334,15 @@ offset_right = 280.0
 offset_bottom = 580.0
 text = "Open Screenshots Folder"
 
+[connection signal="toggled" from="Panel/VBoxContainer/DOFNearEnabled" to="." method="_on_dof_near_enabled_toggled"]
+[connection signal="value_changed" from="Panel/VBoxContainer/DOFNearDistance/HSlider" to="." method="_on_dof_near_distance_value_changed"]
+[connection signal="value_changed" from="Panel/VBoxContainer/DOFNearTransition/HSlider" to="." method="_on_dof_near_transition_value_changed"]
+[connection signal="value_changed" from="Panel/VBoxContainer/DOFFarDistance/HSlider" to="." method="_on_dof_far_distance_value_changed"]
+[connection signal="value_changed" from="Panel/VBoxContainer/DOFFarTransition/HSlider" to="." method="_on_dof_far_transition_value_changed"]
+[connection signal="value_changed" from="Panel/VBoxContainer/DOFAmount/HSlider" to="." method="_on_dof_amount_value_changed"]
+[connection signal="value_changed" from="Panel/VBoxContainer/AdjustmentsBrightness/HSlider" to="." method="_on_adjustments_brightness_value_changed"]
+[connection signal="value_changed" from="Panel/VBoxContainer/AdjustmentsContrast/HSlider" to="." method="_on_adjustments_contrast_value_changed"]
+[connection signal="value_changed" from="Panel/VBoxContainer/AdjustmentsSaturation/HSlider" to="." method="_on_adjustments_saturation_value_changed"]
+[connection signal="pressed" from="Panel/VBoxContainer/ResetToDefaults" to="." method="_on_reset_to_defaults_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/TakeScreenshot" to="." method="_on_take_screenshot_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/OpenScreenshotsFolder" to="." method="_on_open_screenshots_folder_pressed"]

@@ -48,6 +48,11 @@ var old_sdfgi_frames_to_converge := int(ProjectSettings.get_setting("rendering/g
 
 
 func _ready() -> void:
+	if get_viewport().get_camera_3d().effects == null:
+		# Required to set depth of field properties in the GUI later on.
+		# FIXME: Setting DoF properties appears to have no effect.
+		get_viewport().get_camera_3d().effects = CameraEffects.new()
+
 	# Create folder as soon as possible so that it can be opened using the
 	# Open Screenshots Folder button.
 	var dir := Directory.new()
@@ -57,14 +62,14 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	# TODO: Implement shortcuts.
 	return
-	
+
 	if event.is_action_pressed("toggle_photo_mode"):
 		visible = not visible
-		
+
 	if event.is_action_pressed("take_screenshot"):
 		# Normal quality screenshot (as seen from current in-game viewport). Faster to render.
 		await take_screenshot(false)
-	
+
 	if event.is_action_pressed("take_screenshot_photo"):
 		# Shorthand to take high-quality screenshots during gameplay,
 		# without having to go through the photo mode menu.
@@ -89,10 +94,10 @@ func apply_high_quality_settings() -> void:
 	# Use high-resolution 24-bit shadows.
 	# 16K shadows are technically supported, but tend to require too much memory when supersampling.
 	# Therefore, 8K shadows are used instead.
-	RenderingServer.directional_shadow_quality_set(RenderingServer.SHADOW_QUALITY_SOFT_ULTRA)	
+	RenderingServer.directional_shadow_quality_set(RenderingServer.SHADOW_QUALITY_SOFT_ULTRA)
 	RenderingServer.directional_shadow_atlas_set_size(8192, false)
 	RenderingServer.shadows_quality_set(RenderingServer.SHADOW_QUALITY_SOFT_ULTRA)
-	RenderingServer.viewport_set_shadow_atlas_size(get_viewport(), 8192, false)	
+	RenderingServer.viewport_set_shadow_atlas_size(get_viewport(), 8192, false)
 
 	# Increase post-processing effects quality.
 	RenderingServer.environment_glow_set_use_bicubic_upscale(true)
@@ -100,7 +105,7 @@ func apply_high_quality_settings() -> void:
 	RenderingServer.environment_set_ssr_roughness_quality(RenderingServer.ENV_SSR_ROUGNESS_QUALITY_HIGH)
 	# Screen-space reflections' length is resolution-dependent, so adjust the number of steps to compensate.
 	environment.ss_reflections_max_steps *= SUPERSAMPLE_FACTOR
-	
+
 	RenderingServer.environment_set_volumetric_fog_volume_size(512, 512)
 	RenderingServer.environment_set_volumetric_fog_filter_active(true)
 
@@ -121,10 +126,10 @@ func restore_old_quality_settings() -> void:
 	RenderingServer.environment_glow_set_use_high_quality(old_glow_high_quality)
 	RenderingServer.environment_set_ssr_roughness_quality(old_ssr_quality)
 	environment.ss_reflections_max_steps = old_env_ssr_max_steps
-	
+
 	RenderingServer.environment_set_volumetric_fog_volume_size(old_volumetric_fog_volume_size, old_volumetric_fog_volume_depth)
 	RenderingServer.environment_set_volumetric_fog_filter_active(old_volumetric_fog_filter)
-	
+
 	# Restore original global illumination quality.
 	RenderingServer.environment_set_sdfgi_ray_count(RenderingServer.ENV_SDFGI_RAY_COUNT_128)
 	RenderingServer.environment_set_sdfgi_frames_to_converge(RenderingServer.ENV_SDFGI_CONVERGE_IN_30_FRAMES)
@@ -137,19 +142,19 @@ func restore_old_quality_settings() -> void:
 
 func take_screenshot(high_quality: bool = true) -> void:
 	var viewport := get_viewport()
-	
+
 	if high_quality and environment.sdfgi_enabled:
 		apply_high_quality_sdfgi_settings()
 		# Downscale rendering to make it happen as fast as possible, which makes SDFGI converge faster.
 		viewport.scaling_3d_scale = 0.25
-		
+
 		for i in 30:
 			# Wait for SDFGI to fully converge.
 			# Do this before enabling supersampling to make SDFGI converge faster.
 			await get_tree().process_frame
-	
+
 	viewport.scaling_3d_scale = SUPERSAMPLE_FACTOR
-	
+
 	if high_quality:
 		apply_high_quality_settings()
 
@@ -161,13 +166,13 @@ func take_screenshot(high_quality: bool = true) -> void:
 	await get_tree().process_frame
 
 	var image: Image = viewport.get_texture().get_image()
-	
+
 	if high_quality:
 		restore_old_quality_settings()
-	
+
 	# Restore photo mode HUD after taking the screenshot.
 	visible = true
-	
+
 	viewport.scaling_3d_scale = old_3d_scale
 
 	# Screenshot file name with ISO 8601-like date.
@@ -178,6 +183,70 @@ func take_screenshot(high_quality: bool = true) -> void:
 
 	if error != OK:
 		push_error("Couldn't save screenshot.")
+
+
+func _on_dof_near_enabled_toggled(button_pressed: bool) -> void:
+	get_viewport().get_camera_3d().effects.dof_blur_near_enabled = button_pressed
+
+
+func _on_dof_near_distance_value_changed(value: float) -> void:
+	get_viewport().get_camera_3d().effects.dof_blur_far_distance = value
+	$Panel/VBoxContainer/DOFNearDistance/Value.text = str(value)
+
+
+func _on_dof_near_transition_value_changed(value: float) -> void:
+	get_viewport().get_camera_3d().effects.dof_blur_far_transition = value
+	$Panel/VBoxContainer/DOFNearTransition/Value.text = str(value)
+
+
+func _on_dof_far_enabled_toggled(button_pressed: bool) -> void:
+	get_viewport().get_camera_3d().effects.dof_blur_far_enabled = button_pressed
+
+
+func _on_dof_far_distance_value_changed(value: float) -> void:
+	get_viewport().get_camera_3d().effects.dof_blur_far_distance = value
+	$Panel/VBoxContainer/DOFFarDistance/Value.text = str(value)
+
+
+func _on_dof_far_transition_value_changed(value: float) -> void:
+	get_viewport().get_camera_3d().effects.dof_blur_far_transition = value
+	$Panel/VBoxContainer/DOFFarTransition/Value.text = str(value)
+
+
+func _on_dof_amount_value_changed(value: float) -> void:
+	get_viewport().get_camera_3d().effects.dof_blur_amount = value
+	$Panel/VBoxContainer/DOFAmount/Value.text = str(value)
+
+
+func _on_adjustments_brightness_value_changed(value: float) -> void:
+	environment.adjustment_enabled = true
+	environment.adjustment_brightness = value
+	$Panel/VBoxContainer/AdjustmentsBrightness/Value.text = str(value)
+
+
+func _on_adjustments_contrast_value_changed(value: float) -> void:
+	environment.adjustment_enabled = true
+	environment.adjustment_contrast = value
+	$Panel/VBoxContainer/AdjustmentsContrast/Value.text = str(value)
+
+
+func _on_adjustments_saturation_value_changed(value: float) -> void:
+	environment.adjustment_enabled = true
+	environment.adjustment_saturation = value
+	$Panel/VBoxContainer/AdjustmentsSaturation/Value.text = str(value)
+
+
+func _on_reset_to_defaults_pressed() -> void:
+	$Panel/VBoxContainer/DOFNearEnabled.pressed = false
+	$Panel/VBoxContainer/DOFNearDistance/HSlider.value = 5.0
+	$Panel/VBoxContainer/DOFNearTransition/HSlider.value = 5.0
+	$Panel/VBoxContainer/DOFFarDistance/HSlider.value = 30.0
+	$Panel/VBoxContainer/DOFFarTransition/HSlider.value = 15.0
+	$Panel/VBoxContainer/DOFFarEnabled.pressed = false
+	$Panel/VBoxContainer/DOFAmount/HSlider.value = 0.1
+	$Panel/VBoxContainer/AdjustmentsBrightness/HSlider.value = 1.0
+	$Panel/VBoxContainer/AdjustmentsContrast/HSlider.value = 1.0
+	$Panel/VBoxContainer/AdjustmentsSaturation/HSlider.value = 1.0
 
 
 func _on_take_screenshot_pressed(high_quality: bool = true) -> void:
