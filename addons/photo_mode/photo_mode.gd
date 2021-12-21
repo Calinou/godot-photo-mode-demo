@@ -31,6 +31,10 @@ var old_ssr_quality := int(ProjectSettings.get_setting("rendering/environment/sc
 var old_ssao_quality := int(ProjectSettings.get_setting("rendering/environment/ssao/quality"))
 var old_ssao_adaptive_target := float(ProjectSettings.get_setting("rendering/environment/ssao/adaptive_target"))
 
+var old_volumetric_fog_volume_size := int(ProjectSettings.get_setting("rendering/environment/volumetric_fog/volume_size"))
+var old_volumetric_fog_volume_depth := int(ProjectSettings.get_setting("rendering/environment/volumetric_fog/volume_depth"))
+var old_volumetric_fog_filter := int(ProjectSettings.get_setting("rendering/environment/volumetric_fog/use_filter"))
+
 # TODO: Requires RenderingServer GI half resolution method to be exposed.
 var old_gi_use_half_resolution := int(ProjectSettings.get_setting("rendering/global_illumination/gi/use_half_resolution"))
 
@@ -91,6 +95,9 @@ func apply_high_quality_settings() -> void:
 	RenderingServer.environment_set_ssr_roughness_quality(RenderingServer.ENV_SSR_ROUGNESS_QUALITY_HIGH)
 	# Screen-space reflections' length is resolution-dependent, so adjust the number of steps to compensate.
 	environment.ss_reflections_max_steps *= SUPERSAMPLE_FACTOR
+	
+	RenderingServer.environment_set_volumetric_fog_volume_size(512, 512)
+	RenderingServer.environment_set_volumetric_fog_filter_active(true)
 
 	get_viewport().msaa = Viewport.MSAA_8X
 	get_viewport().use_debanding = true
@@ -107,6 +114,9 @@ func restore_old_quality_settings() -> void:
 	# Restore original post-processing effects quality.
 	RenderingServer.environment_set_ssr_roughness_quality(old_ssr_quality)
 	environment.ss_reflections_max_steps = old_env_ssr_max_steps
+	
+	RenderingServer.environment_set_volumetric_fog_volume_size(old_volumetric_fog_volume_size, old_volumetric_fog_volume_depth)
+	RenderingServer.environment_set_volumetric_fog_filter_active(old_volumetric_fog_filter)
 	
 	# Restore original global illumination quality.
 	RenderingServer.environment_set_sdfgi_ray_count(RenderingServer.ENV_SDFGI_RAY_COUNT_128)

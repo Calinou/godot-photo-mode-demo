@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b2uti71qgctof"]
+[gd_scene load_steps=11 format=3 uid="uid://b2uti71qgctof"]
 
 [sub_resource type="PhysicalSkyMaterial" id="6"]
 
@@ -8,15 +8,25 @@ sky_material = SubResource( "6" )
 [sub_resource type="Environment" id="3"]
 background_mode = 2
 sky = SubResource( "2" )
-tonemap_mode = 2
+tonemap_mode = 3
 tonemap_white = 6.0
 ss_reflections_enabled = true
 ssao_enabled = true
 sdfgi_enabled = true
 sdfgi_read_sky_light = true
 glow_enabled = true
+glow_intensity = 0.1
+glow_blend_mode = 1
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0
 
 [sub_resource type="SphereMesh" id="4"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_xv357"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wvk6a"]
+shading_mode = 0
+albedo_color = Color(1, 2, 3, 1)
 
 [sub_resource type="BoxMesh" id="7"]
 
@@ -26,6 +36,9 @@ roughness = 0.0
 
 [sub_resource type="PlaneMesh" id="5"]
 size = Vector2(64, 64)
+
+[sub_resource type="FogMaterial" id="FogMaterial_1ay4e"]
+albedo = Color(0.329412, 0.329412, 0.329412, 1)
 
 [node name="Node3D" type="Node3D"]
 
@@ -52,7 +65,12 @@ gi_mode = 1
 mesh = SubResource( "4" )
 surface_material_override/0 = null
 
-[node name="Box" type="MeshInstance3D" parent="."]
+[node name="GlowSphere" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -2.44931, 0.802835, -2.03234)
+mesh = SubResource( "SphereMesh_xv357" )
+surface_material_override/0 = SubResource( "StandardMaterial3D_wvk6a" )
+
+[node name="MetallicBox" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -0.5, -1)
 gi_mode = 1
 mesh = SubResource( "7" )
@@ -74,3 +92,18 @@ transform = Transform3D(0.728431, -0.0924482, 0.678853, -0.685119, -0.0982925, 0
 light_color = Color(0.607843, 1, 0.309804, 1)
 shadow_enabled = true
 shadow_bias = 0.02
+
+[node name="FogVolume" type="FogVolume" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.16319, 0.1875, -0.1875)
+extents = Vector3(1, 1, 2)
+material = SubResource( "FogMaterial_1ay4e" )
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.507166, -1.90052, -1.18673)
+gi_mode = 1
+polygon = PackedVector2Array(-5.15428, 2.3028, -5.1389, 2.4898, -5.01001, 2.5904, -4.89701, 2.62726, -4.80821, 2.61407, -4.76602, 2.52562, -4.80037, 2.37581, -4.74728, 2.32716, -4.68036, 2.40093, -4.65707, 2.50278, -4.6177, 2.62828, -4.50001, 2.63362, -4.45325, 2.53937, -4.44487, 2.38375, -4.40115, 2.33216, -4.29024, 2.41174, -4.28925, 2.52257, -4.37414, 2.71314, -4.55615, 2.74244, -4.79086, 2.7229, -5.01808, 2.67821, -5.18971, 2.57589, -5.25643, 2.47771, -5.39499, 2.53602, -5.37026, 2.64656, -5.14997, 2.79713, -4.84153, 2.87367, -4.4862, 2.8942, -4.14573, 2.74799, -4.0531, 2.57737, -4.08088, 2.33401, -4.32184, 2.16289, -4.67416, 2.06768, -5.08355, 2.01787, -5.2534, 2.07174, -5.26344, 2.17831, -5.07225, 2.20423, -4.8492, 2.19047, -4.78435, 2.28838, -4.94176, 2.31498, -5.11098, 2.2798)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(-0.166457, 0.211807, -0.963032, 0, 0.976657, 0.214804, 0.986049, 0.0357556, -0.162571, -4.2382, 0.746902, -2.40972)
+light_energy = 40.0
+shadow_enabled = true
