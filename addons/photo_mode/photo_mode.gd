@@ -30,16 +30,21 @@ var old_glow_high_quality := bool(ProjectSettings.get_setting("rendering/environ
 var old_ssr_quality := int(ProjectSettings.get_setting("rendering/environment/screen_space_reflection/roughness_quality"))
 @onready var old_env_ssr_max_steps: int = environment.ss_reflections_max_steps
 
-# TODO: Requires RenderingServer SSAO quality methods to be exposed.
 var old_ssao_quality := int(ProjectSettings.get_setting("rendering/environment/ssao/quality"))
+var old_ssao_half_size := bool(ProjectSettings.get_setting("rendering/environment/ssao/half_size"))
 var old_ssao_adaptive_target := float(ProjectSettings.get_setting("rendering/environment/ssao/adaptive_target"))
+var old_ssao_blur_passes := int(ProjectSettings.get_setting("rendering/environment/ssao/blur_passes"))
+var old_ssao_fadeout_from := float(ProjectSettings.get_setting("rendering/environment/ssao/fadeout_from"))
+var old_ssao_fadeout_to := float(ProjectSettings.get_setting("rendering/environment/ssao/fadeout_to"))
 
 var old_volumetric_fog_volume_size := int(ProjectSettings.get_setting("rendering/environment/volumetric_fog/volume_size"))
 var old_volumetric_fog_volume_depth := int(ProjectSettings.get_setting("rendering/environment/volumetric_fog/volume_depth"))
 var old_volumetric_fog_filter := int(ProjectSettings.get_setting("rendering/environment/volumetric_fog/use_filter"))
 
-# TODO: Requires RenderingServer GI half resolution method to be exposed.
+# TODO: Needs half-resolution GI setter to be exposed in RenderingServer.
 var old_gi_use_half_resolution := int(ProjectSettings.get_setting("rendering/global_illumination/gi/use_half_resolution"))
+
+var old_voxel_gi_quality := int(ProjectSettings.get_setting("rendering/global_illumination/voxel_gi/quality"))
 
 var old_sdfgi_probe_ray_count := int(ProjectSettings.get_setting("rendering/global_illumination/sdfgi/probe_ray_count"))
 var old_sdfgi_frames_to_converge := int(ProjectSettings.get_setting("rendering/global_illumination/sdfgi/frames_to_converge"))
@@ -102,9 +107,13 @@ func apply_high_quality_settings() -> void:
 	RenderingServer.shadows_quality_set(RenderingServer.SHADOW_QUALITY_SOFT_ULTRA)
 	RenderingServer.viewport_set_shadow_atlas_size(get_viewport(), 8192, false)
 
+	RenderingServer.voxel_gi_set_quality(RenderingServer.VOXEL_GI_QUALITY_HIGH)
+
 	# Increase post-processing effects quality.
 	RenderingServer.environment_glow_set_use_bicubic_upscale(true)
 	RenderingServer.environment_glow_set_use_high_quality(true)
+	# Keep the existing SSAO fadeout values as they can be used for artistic control.
+	RenderingServer.environment_set_ssao_quality(RenderingServer.ENV_SSAO_QUALITY_ULTRA, false, 1.0, 2, old_ssao_fadeout_from, old_ssao_fadeout_to)
 	RenderingServer.environment_set_ssr_roughness_quality(RenderingServer.ENV_SSR_ROUGNESS_QUALITY_HIGH)
 	# Screen-space reflections' length is resolution-dependent, so adjust the number of steps to compensate.
 	environment.ss_reflections_max_steps *= SUPERSAMPLE_FACTOR
@@ -124,9 +133,19 @@ func restore_old_quality_settings() -> void:
 	RenderingServer.shadows_quality_set(old_point_shadow_quality)
 	RenderingServer.viewport_set_shadow_atlas_size(get_viewport(), old_point_shadow_size, old_point_shadow_16_bits)
 
+	RenderingServer.voxel_gi_set_quality(old_voxel_gi_quality)
+
 	# Restore original post-processing effects quality.
 	RenderingServer.environment_glow_set_use_bicubic_upscale(old_glow_upscale_mode)
 	RenderingServer.environment_glow_set_use_high_quality(old_glow_high_quality)
+	RenderingServer.environment_set_ssao_quality(
+			old_ssao_quality,
+			old_ssao_half_size,
+			old_ssao_adaptive_target,
+			old_ssao_blur_passes,
+			old_ssao_fadeout_from,
+			old_ssao_fadeout_to
+	)
 	RenderingServer.environment_set_ssr_roughness_quality(old_ssr_quality)
 	environment.ss_reflections_max_steps = old_env_ssr_max_steps
 
