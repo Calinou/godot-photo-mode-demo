@@ -1,9 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://b2uti71qgctof"]
+[gd_scene load_steps=14 format=3 uid="uid://b2uti71qgctof"]
 
-[sub_resource type="PhysicalSkyMaterial" id="6"]
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_xe6u6"]
 
 [sub_resource type="Sky" id="2"]
-sky_material = SubResource( "6" )
+sky_material = SubResource( "PhysicalSkyMaterial_xe6u6" )
 
 [sub_resource type="Environment" id="3"]
 background_mode = 2
@@ -23,7 +23,7 @@ volumetric_fog_density = 0.0
 
 [sub_resource type="CameraEffects" id="CameraEffects_8osje"]
 dof_blur_far_enabled = true
-dof_blur_far_distance = 0.01
+dof_blur_far_distance = 15.0
 dof_blur_far_transition = 20.0
 dof_blur_near_enabled = true
 dof_blur_amount = 1.0
@@ -41,6 +41,10 @@ albedo_color = Color(1, 2, 3, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_41hiw"]
 metallic = 1.0
 roughness = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w8btu"]
+metallic = 1.0
+roughness = 0.3
 
 [sub_resource type="PlaneMesh" id="5"]
 size = Vector2(64, 64)
@@ -85,11 +89,62 @@ transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -2.44931, 0.802835, -2.
 mesh = SubResource( "SphereMesh_xv357" )
 surface_material_override/0 = SubResource( "StandardMaterial3D_wvk6a" )
 
+[node name="GlowSphere2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -2.44931, 2.8687, -8.22716)
+mesh = SubResource( "SphereMesh_xv357" )
+surface_material_override/0 = SubResource( "StandardMaterial3D_wvk6a" )
+
+[node name="GlowSphere3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -1.38303, 1.76078, -8.22716)
+mesh = SubResource( "SphereMesh_xv357" )
+surface_material_override/0 = SubResource( "StandardMaterial3D_wvk6a" )
+
+[node name="GlowSphere4" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 1.21126, 2.15801, -8.22716)
+mesh = SubResource( "SphereMesh_xv357" )
+surface_material_override/0 = SubResource( "StandardMaterial3D_wvk6a" )
+
+[node name="GlowSphere5" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 6.53824, 1.98076, -8.22716)
+mesh = SubResource( "SphereMesh_xv357" )
+surface_material_override/0 = SubResource( "StandardMaterial3D_wvk6a" )
+
+[node name="GlowSphere6" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 5.05451, 0.394525, -8.22716)
+mesh = SubResource( "SphereMesh_xv357" )
+surface_material_override/0 = SubResource( "StandardMaterial3D_wvk6a" )
+
+[node name="GlowSphere7" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.884644, 0.272131, -8.22716)
+mesh = SubResource( "SphereMesh_xv357" )
+surface_material_override/0 = SubResource( "StandardMaterial3D_wvk6a" )
+
+[node name="GlowSphere8" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.0921825, 0.019958, -8.22716)
+mesh = SubResource( "SphereMesh_xv357" )
+surface_material_override/0 = SubResource( "StandardMaterial3D_wvk6a" )
+
+[node name="GlowSphere9" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -1.02597, -0.121001, -8.22716)
+mesh = SubResource( "SphereMesh_xv357" )
+surface_material_override/0 = SubResource( "StandardMaterial3D_wvk6a" )
+
+[node name="GlowSphere10" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -2.86481, 0.398816, -8.22716)
+mesh = SubResource( "SphereMesh_xv357" )
+surface_material_override/0 = SubResource( "StandardMaterial3D_wvk6a" )
+
 [node name="MetallicBox" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -0.5, -1)
 gi_mode = 1
 mesh = SubResource( "7" )
 surface_material_override/0 = SubResource( "StandardMaterial3D_41hiw" )
+
+[node name="MetallicBox2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.06833, -0.429557, -1.09016)
+gi_mode = 1
+mesh = SubResource( "7" )
+surface_material_override/0 = SubResource( "StandardMaterial3D_w8btu" )
 
 [node name="Ground" type="MeshInstance3D" parent="."]
 gi_mode = 1

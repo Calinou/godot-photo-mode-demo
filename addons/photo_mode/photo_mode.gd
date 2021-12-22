@@ -60,13 +60,15 @@ var old_sdfgi_frames_to_update_lights := int(ProjectSettings.get_setting("render
 @onready var old_env_sdfgi_num_cascades: RenderingServer.EnvironmentSDFGICascades = environment.sdfgi_cascades
 @onready var old_env_sdfgi_min_cell_size: float = environment.sdfgi_min_cell_size
 
-# TODO: High-quality settings for environment sky real-time filtering.
+# TODO: High-quality settings for environment sky filtering. Requires setters to be exposed in RenderingServer
+# (which will also have to force regeneration of the sky radiance map).
 
 
 func _ready() -> void:
 	if get_viewport().get_camera_3d().effects == null:
 		# Required to set depth of field properties in the GUI later on.
-		# FIXME: Setting DoF properties appears to have no effect.
+		# FIXME: This doesn't work; setting DoF properties appears to have no effect if no CameraEffects
+		# resource is present (i.e. if this code branch runs).
 		get_viewport().get_camera_3d().effects = CameraEffects.new()
 
 	# Create folder as soon as possible so that it can be opened using the
@@ -201,9 +203,10 @@ func take_screenshot(high_quality: bool = true) -> void:
 	# Hide photo mode HUD so that it's not present on the screenshot.
 	visible = false
 
-	# Wait some frames to get an up-to-date screenshot.
-	await get_tree().process_frame
-	await get_tree().process_frame
+	for i in 3:
+		# Wait some frames to get an up-to-date screenshot
+		# (3 frames are required to have correct sky rendering).
+		await get_tree().process_frame
 
 	var image: Image = viewport.get_texture().get_image()
 
@@ -230,12 +233,12 @@ func _on_dof_near_enabled_toggled(button_pressed: bool) -> void:
 
 
 func _on_dof_near_distance_value_changed(value: float) -> void:
-	get_viewport().get_camera_3d().effects.dof_blur_far_distance = value
+	get_viewport().get_camera_3d().effects.dof_blur_near_distance = value
 	$Panel/VBoxContainer/DOFNearDistance/Value.text = str(value)
 
 
 func _on_dof_near_transition_value_changed(value: float) -> void:
-	get_viewport().get_camera_3d().effects.dof_blur_far_transition = value
+	get_viewport().get_camera_3d().effects.dof_blur_near_transition = value
 	$Panel/VBoxContainer/DOFNearTransition/Value.text = str(value)
 
 
