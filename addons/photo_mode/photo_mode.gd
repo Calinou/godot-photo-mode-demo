@@ -171,12 +171,13 @@ func take_screenshot(high_quality: bool = true) -> void:
 
 	if high_quality and environment.sdfgi_enabled:
 		apply_high_quality_sdfgi_settings()
-		# Downscale rendering to make it happen as fast as possible, which makes SDFGI converge faster.
-		viewport.scaling_3d_scale = 0.25
+		# Downscale rendering to the minimum allowed value to make rendering happen as fast as possible,
+		# which makes SDFGI converge faster.
+		viewport.scaling_3d_scale = 0.1
 
 		for i in 30:
 			# Wait for SDFGI to fully converge.
-			# Do this before enabling supersampling to make SDFGI converge faster.
+			# Do this before enabling supersampling and high-quality settings to make SDFGI converge faster.
 			await get_tree().process_frame
 
 	viewport.scaling_3d_scale = SUPERSAMPLE_FACTOR
