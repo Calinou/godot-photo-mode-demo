@@ -27,6 +27,8 @@ var old_point_shadow_16_bits := bool(ProjectSettings.get_setting("rendering/shad
 var old_glow_upscale_mode := int(ProjectSettings.get_setting("rendering/environment/glow/upscale_mode"))
 var old_glow_high_quality := bool(ProjectSettings.get_setting("rendering/environment/glow/use_high_quality"))
 
+var old_subsurface_scattering_quality := int(ProjectSettings.get_setting("rendering/environment/subsurface_scattering/subsurface_scattering_quality"))
+
 var old_ssr_quality := int(ProjectSettings.get_setting("rendering/environment/screen_space_reflection/roughness_quality"))
 @onready var old_env_ssr_max_steps: int = environment.ss_reflections_max_steps
 
@@ -52,6 +54,8 @@ var old_sdfgi_frames_to_update_lights := int(ProjectSettings.get_setting("render
 @onready var old_env_sdfgi_occlusion: float = environment.sdfgi_use_occlusion
 @onready var old_env_sdfgi_num_cascades: RenderingServer.EnvironmentSDFGICascades = environment.sdfgi_cascades
 @onready var old_env_sdfgi_min_cell_size: float = environment.sdfgi_min_cell_size
+
+# TODO: High-quality settings for depth of field and environment sky real-time filtering.
 
 
 func _ready() -> void:
@@ -114,6 +118,7 @@ func apply_high_quality_settings() -> void:
 	# Increase post-processing effects quality.
 	RenderingServer.environment_glow_set_use_bicubic_upscale(true)
 	RenderingServer.environment_glow_set_use_high_quality(true)
+	RenderingServer.sub_surface_scattering_set_quality(RenderingServer.SUB_SURFACE_SCATTERING_QUALITY_HIGH)
 	# Keep the existing SSAO fadeout values as they can be used for artistic control.
 	RenderingServer.environment_set_ssao_quality(RenderingServer.ENV_SSAO_QUALITY_ULTRA, false, 1.0, 2, old_ssao_fadeout_from, old_ssao_fadeout_to)
 	RenderingServer.environment_set_ssr_roughness_quality(RenderingServer.ENV_SSR_ROUGNESS_QUALITY_HIGH)
@@ -140,6 +145,7 @@ func restore_old_quality_settings() -> void:
 	# Restore original post-processing effects quality.
 	RenderingServer.environment_glow_set_use_bicubic_upscale(old_glow_upscale_mode)
 	RenderingServer.environment_glow_set_use_high_quality(old_glow_high_quality)
+	RenderingServer.sub_surface_scattering_set_quality(old_subsurface_scattering_quality)
 	RenderingServer.environment_set_ssao_quality(
 			old_ssao_quality,
 			old_ssao_half_size,

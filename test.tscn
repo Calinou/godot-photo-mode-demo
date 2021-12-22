@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b2uti71qgctof"]
+[gd_scene load_steps=12 format=3 uid="uid://b2uti71qgctof"]
 
 [sub_resource type="PhysicalSkyMaterial" id="6"]
 
@@ -40,6 +40,12 @@ size = Vector2(64, 64)
 
 [sub_resource type="FogMaterial" id="FogMaterial_1ay4e"]
 albedo = Color(0.329412, 0.329412, 0.329412, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pt8vh"]
+albedo_color = Color(1, 0.807843, 0.662745, 1)
+subsurf_scatter_enabled = true
+subsurf_scatter_strength = 1.0
+subsurf_scatter_skin_mode = true
 
 [node name="Node3D" type="Node3D"]
 
@@ -108,3 +114,11 @@ polygon = PackedVector2Array(-5.15428, 2.3028, -5.1389, 2.4898, -5.01001, 2.5904
 transform = Transform3D(-0.166457, 0.211807, -0.963032, 0, 0.976657, 0.214804, 0.986049, 0.0357556, -0.162571, -4.2382, 0.746902, -2.40972)
 light_energy = 40.0
 shadow_enabled = true
+
+[node name="CSGTorus3D" type="CSGTorus3D" parent="."]
+transform = Transform3D(0.981577, -0.182059, 0.0579728, 0, -0.303418, -0.952858, 0.191066, 0.935303, -0.297828, 0, 0.75, -1.3531)
+inner_radius = 1.0
+outer_radius = 2.0
+sides = 64
+ring_sides = 32
+material = SubResource( "StandardMaterial3D_pt8vh" )
