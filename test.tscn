@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b2uti71qgctof"]
+[gd_scene load_steps=13 format=3 uid="uid://b2uti71qgctof"]
 
 [sub_resource type="PhysicalSkyMaterial" id="6"]
 
@@ -20,6 +20,13 @@ glow_intensity = 0.1
 glow_blend_mode = 1
 volumetric_fog_enabled = true
 volumetric_fog_density = 0.0
+
+[sub_resource type="CameraEffects" id="CameraEffects_8osje"]
+dof_blur_far_enabled = true
+dof_blur_far_distance = 0.01
+dof_blur_far_transition = 20.0
+dof_blur_near_enabled = true
+dof_blur_amount = 1.0
 
 [sub_resource type="SphereMesh" id="4"]
 
@@ -59,6 +66,7 @@ shadow_normal_bias = 2.0
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.862936, 0.098563, -0.495608, 0, 0.980793, 0.195053, 0.505314, -0.168318, 0.846361, -3.07766, 0.940564, 3.63301)
+effects = SubResource( "CameraEffects_8osje" )
 
 [node name="Sphere" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
