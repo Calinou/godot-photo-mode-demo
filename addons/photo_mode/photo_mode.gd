@@ -48,6 +48,7 @@ var old_voxel_gi_quality := int(ProjectSettings.get_setting("rendering/global_il
 
 var old_sdfgi_probe_ray_count := int(ProjectSettings.get_setting("rendering/global_illumination/sdfgi/probe_ray_count"))
 var old_sdfgi_frames_to_converge := int(ProjectSettings.get_setting("rendering/global_illumination/sdfgi/frames_to_converge"))
+var old_sdfgi_frames_to_update_lights := int(ProjectSettings.get_setting("rendering/global_illumination/sdfgi/frames_to_update_lights"))
 @onready var old_env_sdfgi_occlusion: float = environment.sdfgi_use_occlusion
 @onready var old_env_sdfgi_num_cascades: RenderingServer.EnvironmentSDFGICascades = environment.sdfgi_cascades
 @onready var old_env_sdfgi_min_cell_size: float = environment.sdfgi_min_cell_size
@@ -89,6 +90,7 @@ func apply_high_quality_sdfgi_settings() -> void:
 	# We supersample only after SDFGI has fully converged to allow it to converge as fast as possible.
 	RenderingServer.environment_set_sdfgi_ray_count(RenderingServer.ENV_SDFGI_RAY_COUNT_128)
 	RenderingServer.environment_set_sdfgi_frames_to_converge(RenderingServer.ENV_SDFGI_CONVERGE_IN_30_FRAMES)
+	RenderingServer.environment_set_sdfgi_frames_to_update_light(RenderingServer.ENV_SDFGI_UPDATE_LIGHT_IN_1_FRAME)
 	# Disable SDFGI occlusion as it can introduce dark artifacts and is unnecessary with a low cell size.
 	environment.sdfgi_use_occlusion = false
 	environment.sdfgi_cascades = Environment.SDFGI_CASCADES_8
@@ -155,6 +157,7 @@ func restore_old_quality_settings() -> void:
 	# Restore original global illumination quality.
 	RenderingServer.environment_set_sdfgi_ray_count(RenderingServer.ENV_SDFGI_RAY_COUNT_128)
 	RenderingServer.environment_set_sdfgi_frames_to_converge(RenderingServer.ENV_SDFGI_CONVERGE_IN_30_FRAMES)
+	RenderingServer.environment_set_sdfgi_frames_to_update_light(old_sdfgi_frames_to_update_lights)
 	environment.sdfgi_use_occlusion = old_env_sdfgi_occlusion
 	environment.sdfgi_cascades = old_env_sdfgi_num_cascades
 	environment.sdfgi_min_cell_size = old_env_sdfgi_min_cell_size
