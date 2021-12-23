@@ -15,7 +15,7 @@ const SUPERSAMPLE_FACTOR = 2.0
 var old_msaa := int(ProjectSettings.get_setting("rendering/anti_aliasing/quality/msaa"))
 var old_screen_space_aa := int(ProjectSettings.get_setting("rendering/anti_aliasing/quality/screen_space_aa"))
 var old_3d_scale := float(ProjectSettings.get_setting("rendering/scaling_3d/scale"))
-var old_debanding := int(ProjectSettings.get_setting("rendering/anti_aliasing/quality/use_debanding"))
+var old_debanding := bool(ProjectSettings.get_setting("rendering/anti_aliasing/quality/use_debanding"))
 
 var old_directional_shadow_quality := int(ProjectSettings.get_setting("rendering/shadows/directional_shadow/soft_shadow_quality"))
 var old_directional_shadow_size := int(ProjectSettings.get_setting("rendering/shadows/directional_shadow/size"))
@@ -57,14 +57,14 @@ var old_volumetric_fog_volume_depth := int(ProjectSettings.get_setting("renderin
 var old_volumetric_fog_filter := int(ProjectSettings.get_setting("rendering/environment/volumetric_fog/use_filter"))
 
 # TODO: Needs half-resolution GI setter to be exposed in RenderingServer.
-var old_gi_use_half_resolution := int(ProjectSettings.get_setting("rendering/global_illumination/gi/use_half_resolution"))
+var old_gi_use_half_resolution := bool(ProjectSettings.get_setting("rendering/global_illumination/gi/use_half_resolution"))
 
 var old_voxel_gi_quality := int(ProjectSettings.get_setting("rendering/global_illumination/voxel_gi/quality"))
 
 var old_sdfgi_probe_ray_count := int(ProjectSettings.get_setting("rendering/global_illumination/sdfgi/probe_ray_count"))
 var old_sdfgi_frames_to_converge := int(ProjectSettings.get_setting("rendering/global_illumination/sdfgi/frames_to_converge"))
 var old_sdfgi_frames_to_update_lights := int(ProjectSettings.get_setting("rendering/global_illumination/sdfgi/frames_to_update_lights"))
-@onready var old_env_sdfgi_occlusion: float = environment.sdfgi_use_occlusion
+@onready var old_env_sdfgi_occlusion: bool = environment.sdfgi_use_occlusion
 @onready var old_env_sdfgi_num_cascades: RenderingServer.EnvironmentSDFGICascades = environment.sdfgi_cascades
 @onready var old_env_sdfgi_min_cell_size: float = environment.sdfgi_min_cell_size
 
