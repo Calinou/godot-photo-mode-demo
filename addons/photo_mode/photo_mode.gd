@@ -206,8 +206,8 @@ func restore_old_quality_settings() -> void:
 	RenderingServer.environment_set_volumetric_fog_filter_active(old_volumetric_fog_filter)
 
 	# Restore original global illumination quality.
-	RenderingServer.environment_set_sdfgi_ray_count(RenderingServer.ENV_SDFGI_RAY_COUNT_128)
-	RenderingServer.environment_set_sdfgi_frames_to_converge(RenderingServer.ENV_SDFGI_CONVERGE_IN_30_FRAMES)
+	RenderingServer.environment_set_sdfgi_ray_count(old_sdfgi_probe_ray_count)
+	RenderingServer.environment_set_sdfgi_frames_to_converge(old_sdfgi_frames_to_converge)
 	RenderingServer.environment_set_sdfgi_frames_to_update_light(old_sdfgi_frames_to_update_lights)
 	environment.sdfgi_use_occlusion = old_env_sdfgi_occlusion
 	environment.sdfgi_cascades = old_env_sdfgi_num_cascades
