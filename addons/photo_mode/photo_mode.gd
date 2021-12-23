@@ -13,6 +13,7 @@ const SUPERSAMPLE_FACTOR = 2.0
 # Graphics settings to be restored at the end of taking a screenshot.
 
 var old_msaa := int(ProjectSettings.get_setting("rendering/anti_aliasing/quality/msaa"))
+var old_screen_space_aa := int(ProjectSettings.get_setting("rendering/anti_aliasing/quality/screen_space_aa"))
 var old_3d_scale := float(ProjectSettings.get_setting("rendering/scaling_3d/scale"))
 var old_debanding := int(ProjectSettings.get_setting("rendering/anti_aliasing/quality/use_debanding"))
 
@@ -137,6 +138,10 @@ func apply_high_quality_settings() -> void:
 	RenderingServer.environment_set_volumetric_fog_filter_active(true)
 
 	get_viewport().msaa = Viewport.MSAA_8X
+	# Since the rendering is supersampled, we don't lose much sharpness (if any)
+	# by enabling FXAA. FXAA will still help further reduce shader-induced aliasing
+	# even when supersampling.
+	get_viewport().screen_space_aa = Viewport.SCREEN_SPACE_AA_FXAA
 	get_viewport().use_debanding = true
 
 
@@ -178,6 +183,7 @@ func restore_old_quality_settings() -> void:
 	environment.sdfgi_min_cell_size = old_env_sdfgi_min_cell_size
 
 	get_viewport().msaa = old_msaa
+	get_viewport().screen_space_aa = old_screen_space_aa
 	get_viewport().use_debanding = old_debanding
 
 
