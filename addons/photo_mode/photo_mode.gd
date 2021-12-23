@@ -230,7 +230,6 @@ func is_pausing_on_screenshot() -> bool:
 func take_screenshot(high_quality: bool = true) -> void:
 	# Pausing is enabled by default, but it can be disabled (as it doesn't play well with networked multiplayer games).
 	if is_pausing_on_screenshot():
-		print("pausing")
 		get_tree().paused = true
 
 	var viewport := get_viewport()
