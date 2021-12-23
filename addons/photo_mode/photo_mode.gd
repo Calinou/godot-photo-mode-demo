@@ -127,6 +127,9 @@ func apply_high_quality_settings() -> void:
 	RenderingServer.environment_glow_set_use_bicubic_upscale(true)
 	RenderingServer.environment_glow_set_use_high_quality(true)
 	RenderingServer.camera_effects_set_dof_blur_bokeh_shape(RenderingServer.DOF_BOKEH_CIRCLE)
+	# Depth of field amount is resolution-dependent, so adjust the amount to compensate.
+	get_viewport().get_camera_3d().effects.dof_blur_amount *= SUPERSAMPLE_FACTOR
+
 	RenderingServer.sub_surface_scattering_set_quality(RenderingServer.SUB_SURFACE_SCATTERING_QUALITY_HIGH)
 	# Keep the existing SSAO fadeout values as they can be used for artistic control.
 	RenderingServer.environment_set_ssao_quality(RenderingServer.ENV_SSAO_QUALITY_ULTRA, false, 1.0, 2, old_ssao_fadeout_from, old_ssao_fadeout_to)
@@ -159,6 +162,7 @@ func restore_old_quality_settings() -> void:
 	RenderingServer.environment_glow_set_use_bicubic_upscale(old_glow_upscale_mode)
 	RenderingServer.environment_glow_set_use_high_quality(old_glow_high_quality)
 	RenderingServer.camera_effects_set_dof_blur_bokeh_shape(old_dof_bokeh_shape)
+	get_viewport().get_camera_3d().effects.dof_blur_amount /= SUPERSAMPLE_FACTOR
 	RenderingServer.sub_surface_scattering_set_quality(old_subsurface_scattering_quality)
 	RenderingServer.environment_set_ssao_quality(
 			old_ssao_quality,
