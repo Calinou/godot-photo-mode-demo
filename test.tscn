@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b2uti71qgctof"]
+[gd_scene load_steps=16 format=3 uid="uid://b2uti71qgctof"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_xe6u6"]
 
@@ -58,6 +58,38 @@ subsurf_scatter_enabled = true
 subsurf_scatter_strength = 1.0
 subsurf_scatter_skin_mode = true
 
+[sub_resource type="Animation" id="Animation_xqaaj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_yb1bt"]
+resource_name = "move"
+length = 10.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 6.28319, 0)]
+}
+
 [node name="Node3D" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -68,8 +100,10 @@ transform = Transform3D(-0.569338, 0.0920953, 0.816929, 0.652575, 0.654995, 0.38
 shadow_enabled = true
 shadow_normal_bias = 2.0
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.862936, 0.098563, -0.495608, 0, 0.980793, 0.195053, 0.505314, -0.168318, 0.846361, -3.07766, 0.940564, 3.63301)
+[node name="Pivot" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="Pivot"]
+transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 3.25, 4.375)
 effects = SubResource( "CameraEffects_8osje" )
 
 [node name="Sphere" type="MeshInstance3D" parent="."]
@@ -185,3 +219,8 @@ outer_radius = 2.0
 sides = 64
 ring_sides = 32
 material = SubResource( "StandardMaterial3D_pt8vh" )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "move"
+anims/RESET = SubResource( "Animation_xqaaj" )
+anims/move = SubResource( "Animation_yb1bt" )

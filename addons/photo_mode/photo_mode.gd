@@ -216,7 +216,21 @@ func restore_old_quality_settings() -> void:
 	get_viewport().use_debanding = old_debanding
 
 
+## Returns `true` if the plugin should pause the game while a screenshot is being taken.
+func is_pausing_on_screenshot() -> bool:
+	if ProjectSettings.has_setting("addons/photo_mode/pause_on_screenshot"):
+		return ProjectSettings.get_setting("addons/photo_mode/pause_on_screenshot")
+	else:
+		# Default value is `true`, but it's not saved to `project.godot` when the setting is equal to its default value.
+		return true
+
+
 func take_screenshot(high_quality: bool = true) -> void:
+	# Pausing is enabled by default, but it can be disabled (as it doesn't play well with networked multiplayer games).
+	if is_pausing_on_screenshot():
+		print("pausing")
+		get_tree().paused = true
+
 	var viewport := get_viewport()
 
 	if high_quality and environment.sdfgi_enabled:
@@ -261,6 +275,9 @@ func take_screenshot(high_quality: bool = true) -> void:
 
 	if error != OK:
 		push_error("Couldn't save screenshot.")
+
+	if is_pausing_on_screenshot():
+		get_tree().paused = false
 
 
 func _on_dof_near_enabled_toggled(button_pressed: bool) -> void:
