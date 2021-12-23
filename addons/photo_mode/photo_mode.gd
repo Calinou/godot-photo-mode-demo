@@ -126,7 +126,8 @@ func apply_high_quality_settings() -> void:
 	RenderingServer.directional_shadow_quality_set(RenderingServer.SHADOW_QUALITY_SOFT_ULTRA)
 	RenderingServer.directional_shadow_atlas_set_size(8192, false)
 	RenderingServer.shadows_quality_set(RenderingServer.SHADOW_QUALITY_SOFT_ULTRA)
-	RenderingServer.viewport_set_shadow_atlas_size(get_viewport(), 8192, false)
+	get_viewport().shadow_atlas_size = 8192
+	get_viewport().shadow_atlas_16_bits = false
 
 	RenderingServer.voxel_gi_set_quality(RenderingServer.VOXEL_GI_QUALITY_HIGH)
 
@@ -172,7 +173,8 @@ func restore_old_quality_settings() -> void:
 	RenderingServer.directional_shadow_quality_set(old_directional_shadow_quality)
 	RenderingServer.directional_shadow_atlas_set_size(old_directional_shadow_size, old_directional_shadow_16_bits)
 	RenderingServer.shadows_quality_set(old_point_shadow_quality)
-	RenderingServer.viewport_set_shadow_atlas_size(get_viewport(), old_point_shadow_size, old_point_shadow_16_bits)
+	get_viewport().shadow_atlas_size = old_point_shadow_size
+	get_viewport().shadow_atlas_16_bits = old_point_shadow_16_bits
 
 	RenderingServer.voxel_gi_set_quality(old_voxel_gi_quality)
 
