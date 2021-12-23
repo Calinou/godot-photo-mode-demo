@@ -27,6 +27,13 @@ var old_point_shadow_16_bits := bool(ProjectSettings.get_setting("rendering/shad
 
 var old_glow_upscale_mode := int(ProjectSettings.get_setting("rendering/environment/glow/upscale_mode"))
 var old_glow_high_quality := bool(ProjectSettings.get_setting("rendering/environment/glow/use_high_quality"))
+@onready var old_env_glow_level_1: float = environment.get("glow_levels/1")
+@onready var old_env_glow_level_2: float = environment.get("glow_levels/2")
+@onready var old_env_glow_level_3: float = environment.get("glow_levels/3")
+@onready var old_env_glow_level_4: float = environment.get("glow_levels/4")
+@onready var old_env_glow_level_5: float = environment.get("glow_levels/5")
+@onready var old_env_glow_level_6: float = environment.get("glow_levels/6")
+@onready var old_env_glow_level_7: float = environment.get("glow_levels/7")
 
 var old_dof_bokeh_shape = int(ProjectSettings.get_setting("rendering/camera/depth_of_field/depth_of_field_bokeh_shape"))
 # TODO: Needs bokeh quality and jitter setters to be exposed in RenderingServer.
@@ -126,6 +133,17 @@ func apply_high_quality_settings() -> void:
 	# Increase post-processing effects quality.
 	RenderingServer.environment_glow_set_use_bicubic_upscale(true)
 	RenderingServer.environment_glow_set_use_high_quality(true)
+	# Glow blurriness is resolution-dependent, so adjust the levels to compensate (use blurrier levels).
+	# This won't match when using glow levels different from the defaults, but most projects stick
+	# to the defaults anyway.
+	if SUPERSAMPLE_FACTOR >= 1.5:
+		environment.set("glow_levels/1", 0.0)
+		environment.set("glow_levels/2", 0.0)
+		environment.set("glow_levels/3", 0.0)
+		environment.set("glow_levels/4", 1.0)
+		environment.set("glow_levels/5", 0.0)
+		environment.set("glow_levels/6", 1.0)
+		environment.set("glow_levels/7", 0.0)
 	RenderingServer.camera_effects_set_dof_blur_bokeh_shape(RenderingServer.DOF_BOKEH_CIRCLE)
 	# Depth of field amount is resolution-dependent, so adjust the amount to compensate.
 	get_viewport().get_camera_3d().effects.dof_blur_amount *= SUPERSAMPLE_FACTOR
@@ -161,6 +179,13 @@ func restore_old_quality_settings() -> void:
 	# Restore original post-processing effects quality.
 	RenderingServer.environment_glow_set_use_bicubic_upscale(old_glow_upscale_mode)
 	RenderingServer.environment_glow_set_use_high_quality(old_glow_high_quality)
+	environment.set("glow_levels/1", old_env_glow_level_1)
+	environment.set("glow_levels/2", old_env_glow_level_2)
+	environment.set("glow_levels/3", old_env_glow_level_3)
+	environment.set("glow_levels/4", old_env_glow_level_4)
+	environment.set("glow_levels/5", old_env_glow_level_5)
+	environment.set("glow_levels/6", old_env_glow_level_6)
+	environment.set("glow_levels/7", old_env_glow_level_7)
 	RenderingServer.camera_effects_set_dof_blur_bokeh_shape(old_dof_bokeh_shape)
 	get_viewport().get_camera_3d().effects.dof_blur_amount /= SUPERSAMPLE_FACTOR
 	RenderingServer.sub_surface_scattering_set_quality(old_subsurface_scattering_quality)
