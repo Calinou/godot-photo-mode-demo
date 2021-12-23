@@ -1,0 +1,37 @@
+[remap]
+
+importer="texture"
+type="StreamTexture2D"
+uid="uid://cwajjrh0bvtfb"
+path.s3tc="res://.godot/imported/sofa_03_diff_4k.jpg-09ad2e08065b9148aa87bf2c5b288b80.s3tc.stex"
+path.etc2="res://.godot/imported/sofa_03_diff_4k.jpg-09ad2e08065b9148aa87bf2c5b288b80.etc2.stex"
+metadata={
+"imported_formats": ["s3tc", "etc2"],
+"vram_texture": true
+}
+
+[deps]
+
+source_file="res://polyhaven/sofa_03_4k/textures/sofa_03_diff_4k.jpg"
+dest_files=["res://.godot/imported/sofa_03_diff_4k.jpg-09ad2e08065b9148aa87bf2c5b288b80.s3tc.stex", "res://.godot/imported/sofa_03_diff_4k.jpg-09ad2e08065b9148aa87bf2c5b288b80.etc2.stex"]
+
+[params]
+
+compress/mode=2
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/bptc_ldr=0
+compress/normal_map=0
+compress/channel_pack=0
+compress/streamed=false
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/HDR_as_SRGB=false
+process/size_limit=0
+detect_3d/compress_to=0
+svg/scale=1.0

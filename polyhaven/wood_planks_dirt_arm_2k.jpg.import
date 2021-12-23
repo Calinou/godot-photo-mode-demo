@@ -1,0 +1,37 @@
+[remap]
+
+importer="texture"
+type="StreamTexture2D"
+uid="uid://d4dw31tus2ulf"
+path.s3tc="res://.godot/imported/wood_planks_dirt_arm_2k.jpg-9739654bbe3ef83b837e2a5b4166df8d.s3tc.stex"
+path.etc2="res://.godot/imported/wood_planks_dirt_arm_2k.jpg-9739654bbe3ef83b837e2a5b4166df8d.etc2.stex"
+metadata={
+"imported_formats": ["s3tc", "etc2"],
+"vram_texture": true
+}
+
+[deps]
+
+source_file="res://polyhaven/wood_planks_dirt_arm_2k.jpg"
+dest_files=["res://.godot/imported/wood_planks_dirt_arm_2k.jpg-9739654bbe3ef83b837e2a5b4166df8d.s3tc.stex", "res://.godot/imported/wood_planks_dirt_arm_2k.jpg-9739654bbe3ef83b837e2a5b4166df8d.etc2.stex"]
+
+[params]
+
+compress/mode=2
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/bptc_ldr=0
+compress/normal_map=0
+compress/channel_pack=0
+compress/streamed=false
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/HDR_as_SRGB=false
+process/size_limit=0
+detect_3d/compress_to=0
+svg/scale=1.0

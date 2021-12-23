@@ -1,0 +1,187 @@
+[gd_scene load_steps=18 format=3 uid="uid://yb0y2i6acfs6"]
+
+[ext_resource type="Texture2D" uid="uid://c5bmgurmmstor" path="res://polyhaven/beige_wall_002_diff_2k.jpg" id="1_38237"]
+[ext_resource type="PackedScene" uid="uid://wuqia7xmtbdq" path="res://polyhaven/wooden_table_02_2k/wooden_table_02_2k.gltf" id="1_jv4a4"]
+[ext_resource type="Texture2D" uid="uid://cth6s4xckg12e" path="res://polyhaven/wood_planks_dirt_diff_2k.jpg" id="1_lad2c"]
+[ext_resource type="Texture2D" uid="uid://df2edm7s1w8ua" path="res://polyhaven/beige_wall_002_nor_gl_2k.jpg" id="2_cgenv"]
+[ext_resource type="PackedScene" uid="uid://cucrn7t8hogac" path="res://polyhaven/sofa_03_4k/sofa_03_4k.gltf" id="2_g7vvu"]
+[ext_resource type="Texture2D" uid="uid://bvcf3ege31yq2" path="res://polyhaven/beige_wall_002_arm_2k.jpg" id="2_q3rr2"]
+[ext_resource type="PackedScene" uid="uid://glsycb13np64" path="res://polyhaven/marble_bust_01_2k/marble_bust_01_2k.gltf" id="3_6v7si"]
+[ext_resource type="Texture2D" uid="uid://d4dw31tus2ulf" path="res://polyhaven/wood_planks_dirt_arm_2k.jpg" id="3_706bm"]
+[ext_resource type="VoxelGIData" uid="uid://bmx8bqkwwofjd" path="res://room.VoxelGI_data.res" id="4_fp56r"]
+[ext_resource type="Texture2D" uid="uid://d1stvo3tt3yk8" path="res://polyhaven/wood_planks_dirt_nor_gl_2k.jpg" id="5_y3w8b"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5h1v8"]
+sky_top_color = Color(0.568627, 0.698039, 0.807843, 1)
+sky_horizon_color = Color(0.672549, 0.704902, 0.734314, 1)
+ground_bottom_color = Color(0.121569, 0.121569, 0.129412, 1)
+ground_horizon_color = Color(0.672549, 0.704902, 0.734314, 1)
+
+[sub_resource type="Sky" id="Sky_i84h3"]
+sky_material = SubResource( "ProceduralSkyMaterial_5h1v8" )
+
+[sub_resource type="Environment" id="Environment_kjshk"]
+background_mode = 2
+sky = SubResource( "Sky_i84h3" )
+tonemap_mode = 3
+tonemap_white = 6.0
+ss_reflections_enabled = true
+ssao_enabled = true
+sdfgi_read_sky_light = true
+sdfgi_bounce_feedback = 0.5
+sdfgi_min_cell_size = 0.05
+sdfgi_cascade0_distance = 3.2
+sdfgi_max_distance = 204.8
+sdfgi_y_scale = 2
+glow_enabled = true
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_knj7h"]
+albedo_texture = ExtResource( "1_38237" )
+orm_texture = ExtResource( "2_q3rr2" )
+normal_enabled = true
+normal_texture = ExtResource( "2_cgenv" )
+uv1_scale = Vector3(1, 1.5, 1)
+uv1_triplanar = true
+texture_filter = 5
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_naqle"]
+albedo_color = Color(1.25, 1.25, 1.35, 1)
+albedo_texture = ExtResource( "1_38237" )
+orm_texture = ExtResource( "2_q3rr2" )
+uv1_scale = Vector3(2, 2, 2)
+uv1_offset = Vector3(0.24, 0.12, 0.38)
+uv1_triplanar = true
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_aaqe0"]
+albedo_texture = ExtResource( "1_lad2c" )
+orm_texture = ExtResource( "3_706bm" )
+normal_enabled = true
+normal_texture = ExtResource( "5_y3w8b" )
+uv1_scale = Vector3(2, 3, 1)
+texture_filter = 5
+
+[sub_resource type="CameraEffects" id="CameraEffects_7n133"]
+dof_blur_far_enabled = true
+dof_blur_far_distance = 2.0
+dof_blur_far_transition = 6.0
+dof_blur_near_enabled = true
+dof_blur_near_transition = 2.0
+dof_blur_amount = 0.15
+
+[node name="Room" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( "Environment_kjshk" )
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="RoomBase" type="CSGBox3D" parent="."]
+gi_mode = 1
+size = Vector3(9, 4, 7)
+material = SubResource( "ORMMaterial3D_knj7h" )
+
+[node name="Interior" type="CSGBox3D" parent="RoomBase"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00731087, 0.00562763, -0.00878429)
+gi_mode = 1
+operation = 2
+size = Vector3(8, 3, 6)
+material = SubResource( "ORMMaterial3D_knj7h" )
+
+[node name="WindowLeft" type="CSGBox3D" parent="RoomBase"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.125, 0, 0.0625)
+gi_mode = 1
+operation = 2
+size = Vector3(1, 1.5, 1)
+material = SubResource( "ORMMaterial3D_knj7h" )
+
+[node name="WindowRight" type="CSGBox3D" parent="RoomBase"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.125, 0, -1.0625)
+gi_mode = 1
+operation = 2
+size = Vector3(1, 1.5, 1)
+material = SubResource( "ORMMaterial3D_knj7h" )
+
+[node name="RoomWallLine" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.3616, 0)
+gi_mode = 1
+size = Vector3(9, 0.25, 7)
+material = SubResource( "ORMMaterial3D_naqle" )
+
+[node name="Subtractive" type="CSGBox3D" parent="RoomWallLine"]
+gi_mode = 1
+operation = 2
+size = Vector3(7.9, 0.25, 5.9)
+material = SubResource( "ORMMaterial3D_naqle" )
+
+[node name="Floor" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00361872, -1.54, 0.00606823)
+size = Vector3(9, 0.1, 6)
+material = SubResource( "ORMMaterial3D_aaqe0" )
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.994912, 0.0312074, -0.0957874, 0, 0.95081, 0.309772, 0.100743, -0.308196, 0.945973, -0.397161, -0.337261, 1.23159)
+effects = SubResource( "CameraEffects_7n133" )
+fov = 70.0
+
+[node name="wooden_table_02_2k" parent="." instance=ExtResource( "1_jv4a4" )]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9375, -1.49, -2.25)
+
+[node name="wooden_table_02_2k2" parent="." instance=ExtResource( "1_jv4a4" )]
+transform = Transform3D(0.654728, 0, -0.755865, 0, 1, 0, 0.755865, 0, 0.654728, 2.59462, -1.49, -2.25)
+
+[node name="wooden_table_02_2k3" parent="." instance=ExtResource( "1_jv4a4" )]
+transform = Transform3D(-0.251563, 0, -0.967841, 0, 1, 0, 0.967841, 0, -0.251563, 1.99605, -1.49, 1.08102)
+
+[node name="wooden_table_02_2k4" parent="." instance=ExtResource( "1_jv4a4" )]
+transform = Transform3D(-0.138433, -0.834973, -0.532594, -0.210048, 0.550291, -0.808121, 0.967841, 0, -0.251563, 3.20879, -1.15523, 1.08102)
+
+[node name="wooden_table_02_2k5" parent="." instance=ExtResource( "1_jv4a4" )]
+transform = Transform3D(-0.138433, -0.834973, -0.532594, -0.461042, -0.421616, 0.78082, -0.876514, 0.35364, -0.326592, 3.20879, -0.662181, -0.356259)
+
+[node name="wooden_table_02_2k6" parent="." instance=ExtResource( "1_jv4a4" )]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.812463, -1.49, -0.178002)
+
+[node name="wooden_table_02_2k7" parent="." instance=ExtResource( "1_jv4a4" )]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.324238, -1.49, -0.178002)
+
+[node name="wooden_table_02_2k8" parent="." instance=ExtResource( "1_jv4a4" )]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.812463, -1.49, 0.528643)
+
+[node name="wooden_table_02_2k9" parent="." instance=ExtResource( "1_jv4a4" )]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.324238, -1.49, 0.528643)
+
+[node name="sofa_03_4k" parent="." instance=ExtResource( "2_g7vvu" )]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.49, -2.5)
+
+[node name="sofa_03_4k2" parent="." instance=ExtResource( "2_g7vvu" )]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -1.49, 2.5)
+
+[node name="marble_bust_01_2k" parent="." instance=ExtResource( "3_6v7si" )]
+transform = Transform3D(0.889656, 0, 0.456632, 0, 1, 0, -0.456632, 0, 0.889656, -2.96228, -0.690688, -2.23292)
+
+[node name="marble_bust_01_2k3" parent="." instance=ExtResource( "3_6v7si" )]
+transform = Transform3D(0.184875, -0.155111, 0.970444, 0.980552, -0.0370635, -0.192725, 0.0658618, 0.987202, 0.145242, -1.00666, -0.573874, -0.148945)
+
+[node name="marble_bust_01_2k4" parent="." instance=ExtResource( "3_6v7si" )]
+transform = Transform3D(-0.184875, 0.155111, -0.970444, 0.980552, -0.0370635, -0.192725, -0.0658618, -0.987202, -0.145242, 0.118341, -0.573874, 0.851055)
+
+[node name="marble_bust_01_2k2" parent="." instance=ExtResource( "3_6v7si" )]
+transform = Transform3D(0.393621, 0, -0.919273, 0, 1, 0, 0.919273, 0, 0.393621, 2.47249, -1.49013, -0.0451133)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.958046, 0)
+light_color = Color(1, 0.92549, 0.831373, 1)
+light_energy = 1.2
+light_size = 0.25
+light_specular = 0.25
+shadow_enabled = true
+shadow_bias = 0.06
+shadow_normal_bias = 2.0
+omni_range = 6.0
+
+[node name="VoxelGI" type="VoxelGI" parent="."]
+subdiv = 2
+extents = Vector3(4.6, 2.1, 3.6)
+data = ExtResource( "4_fp56r" )
