@@ -31,4 +31,3 @@ enabled=PackedStringArray("res://addons/photo_mode/plugin.cfg")
 [rendering]
 
 textures/default_filters/anisotropic_filtering_level=4
-camera/depth_of_field/depth_of_field_bokeh_quality=3

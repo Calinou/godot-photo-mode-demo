@@ -36,9 +36,8 @@ var old_glow_high_quality := bool(ProjectSettings.get_setting("rendering/environ
 @onready var old_env_glow_level_7: float = environment.get("glow_levels/7")
 
 var old_dof_bokeh_shape = int(ProjectSettings.get_setting("rendering/camera/depth_of_field/depth_of_field_bokeh_shape"))
-# TODO: Needs bokeh quality and jitter setters to be exposed in RenderingServer.
-var old_dof_bokeh_quality = int(ProjectSettings.get_setting("rendering/camera/depth_of_field/depth_of_field_bokeh_quality"))
-var old_dof_bokeh_jitter = bool(ProjectSettings.get_setting("rendering/camera/depth_of_field/depth_of_field_use_jitter"))
+var old_dof_quality = int(ProjectSettings.get_setting("rendering/camera/depth_of_field/depth_of_field_bokeh_quality"))
+var old_dof_jitter = bool(ProjectSettings.get_setting("rendering/camera/depth_of_field/depth_of_field_use_jitter"))
 
 var old_subsurface_scattering_quality := int(ProjectSettings.get_setting("rendering/environment/subsurface_scattering/subsurface_scattering_quality"))
 
@@ -153,6 +152,7 @@ func apply_high_quality_settings() -> void:
 		environment.set("glow_levels/6", 1.0)
 		environment.set("glow_levels/7", 0.0)
 	RenderingServer.camera_effects_set_dof_blur_bokeh_shape(RenderingServer.DOF_BOKEH_CIRCLE)
+	RenderingServer.camera_effects_set_dof_blur_quality(RenderingServer.DOF_BLUR_QUALITY_HIGH, old_dof_jitter)
 	# Depth of field amount is resolution-dependent, so adjust the amount to compensate.
 	get_viewport().get_camera_3d().effects.dof_blur_amount *= SUPERSAMPLE_FACTOR
 
@@ -197,6 +197,7 @@ func restore_old_quality_settings() -> void:
 	environment.set("glow_levels/6", old_env_glow_level_6)
 	environment.set("glow_levels/7", old_env_glow_level_7)
 	RenderingServer.camera_effects_set_dof_blur_bokeh_shape(old_dof_bokeh_shape)
+	RenderingServer.camera_effects_set_dof_blur_quality(old_dof_quality, old_dof_jitter)
 	get_viewport().get_camera_3d().effects.dof_blur_amount /= SUPERSAMPLE_FACTOR
 	RenderingServer.sub_surface_scattering_set_quality(old_subsurface_scattering_quality)
 	RenderingServer.environment_set_ssao_quality(
