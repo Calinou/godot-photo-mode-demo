@@ -52,6 +52,13 @@ var old_ssao_blur_passes := int(ProjectSettings.get_setting("rendering/environme
 var old_ssao_fadeout_from := float(ProjectSettings.get_setting("rendering/environment/ssao/fadeout_from"))
 var old_ssao_fadeout_to := float(ProjectSettings.get_setting("rendering/environment/ssao/fadeout_to"))
 
+var old_ssil_quality :=  int(ProjectSettings.get_setting("rendering/environment/ssil/quality"))
+var old_ssil_half_size := bool(ProjectSettings.get_setting("rendering/environment/ssil/half_size"))
+var old_ssil_adaptive_target := float(ProjectSettings.get_setting("rendering/environment/ssil/adaptive_target"))
+var old_ssil_blur_passes := int(ProjectSettings.get_setting("rendering/environment/ssil/blur_passes"))
+var old_ssil_fadeout_from := float(ProjectSettings.get_setting("rendering/environment/ssil/fadeout_from"))
+var old_ssil_fadeout_to := float(ProjectSettings.get_setting("rendering/environment/ssil/fadeout_to"))
+
 var old_volumetric_fog_volume_size := int(ProjectSettings.get_setting("rendering/environment/volumetric_fog/volume_size"))
 var old_volumetric_fog_volume_depth := int(ProjectSettings.get_setting("rendering/environment/volumetric_fog/volume_depth"))
 var old_volumetric_fog_filter := int(ProjectSettings.get_setting("rendering/environment/volumetric_fog/use_filter"))
@@ -150,8 +157,9 @@ func apply_high_quality_settings() -> void:
 	get_viewport().get_camera_3d().effects.dof_blur_amount *= SUPERSAMPLE_FACTOR
 
 	RenderingServer.sub_surface_scattering_set_quality(RenderingServer.SUB_SURFACE_SCATTERING_QUALITY_HIGH)
-	# Keep the existing SSAO fadeout values as they can be used for artistic control.
-	RenderingServer.environment_set_ssao_quality(RenderingServer.ENV_SSAO_QUALITY_ULTRA, false, 1.0, 2, old_ssao_fadeout_from, old_ssao_fadeout_to)
+	# Keep the existing SSAO and SSIL fadeout values as they can be used for artistic control.
+	RenderingServer.environment_set_ssao_quality(RenderingServer.ENV_SSAO_QUALITY_ULTRA, false, 1.0, 6, old_ssao_fadeout_from, old_ssao_fadeout_to)
+	RenderingServer.environment_set_ssil_quality(RenderingServer.ENV_SSAO_QUALITY_ULTRA, false, 1.0, 6, old_ssil_fadeout_from, old_ssil_fadeout_to)
 	RenderingServer.environment_set_ssr_roughness_quality(RenderingServer.ENV_SSR_ROUGNESS_QUALITY_HIGH)
 	# Screen-space reflections' length is resolution-dependent, so adjust the number of steps to compensate.
 	environment.ss_reflections_max_steps *= SUPERSAMPLE_FACTOR
@@ -198,6 +206,14 @@ func restore_old_quality_settings() -> void:
 			old_ssao_blur_passes,
 			old_ssao_fadeout_from,
 			old_ssao_fadeout_to
+	)
+	RenderingServer.environment_set_ssil_quality(
+			old_ssil_quality,
+			old_ssil_half_size,
+			old_ssil_adaptive_target,
+			old_ssil_blur_passes,
+			old_ssil_fadeout_from,
+			old_ssil_fadeout_to
 	)
 	RenderingServer.environment_set_ssr_roughness_quality(old_ssr_quality)
 	environment.ss_reflections_max_steps = old_env_ssr_max_steps

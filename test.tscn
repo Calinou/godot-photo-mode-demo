@@ -10,8 +10,8 @@ background_mode = 2
 sky = SubResource( "2" )
 tonemap_mode = 3
 tonemap_white = 6.0
-ss_reflections_enabled = true
 ssao_enabled = true
+ssil_enabled = true
 sdfgi_enabled = true
 sdfgi_read_sky_light = true
 sdfgi_bounce_feedback = 0.5
@@ -221,6 +221,5 @@ ring_sides = 32
 material = SubResource( "StandardMaterial3D_pt8vh" )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "move"
 anims/RESET = SubResource( "Animation_xqaaj" )
 anims/move = SubResource( "Animation_yb1bt" )
