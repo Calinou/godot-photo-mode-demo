@@ -1,43 +1,39 @@
-[gd_scene load_steps=7 format=3 uid="uid://g7sb5cjj5ior"]
+[gd_scene load_steps=6 format=3 uid="uid://g7sb5cjj5ior"]
 
 [ext_resource type="Texture2D" uid="uid://mmvhsywks82" path="res://polyhaven/aviation_museum_2k.hdr" id="1_rjymc"]
 [ext_resource type="PackedScene" uid="uid://glsycb13np64" path="res://polyhaven/marble_bust_01_2k/marble_bust_01_2k.gltf" id="2_p1o4a"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ov117"]
-panorama = ExtResource( "1_rjymc" )
+panorama = ExtResource("1_rjymc")
 
 [sub_resource type="Sky" id="Sky_4gnxk"]
-sky_material = SubResource( "PanoramaSkyMaterial_ov117" )
+sky_material = SubResource("PanoramaSkyMaterial_ov117")
 process_mode = 3
 
 [sub_resource type="Environment" id="Environment_52bou"]
 background_mode = 2
-sky = SubResource( "Sky_4gnxk" )
+sky = SubResource("Sky_4gnxk")
 tonemap_mode = 3
+tonemap_exposure = 0.5
 tonemap_white = 6.0
 ssao_enabled = true
 ssao_light_affect = 1.0
 ssao_ao_channel_affect = 1.0
 ssil_enabled = true
 sdfgi_enabled = true
-sdfgi_read_sky_light = true
-sdfgi_bounce_feedback = 0.5
-sdfgi_min_cell_size = 0.01
-sdfgi_cascade0_distance = 0.64
-sdfgi_max_distance = 40.96
+sdfgi_min_cell_size = 0.04
 sdfgi_y_scale = 2
 glow_enabled = true
 volumetric_fog_enabled = true
-volumetric_fog_density = 1.0
+volumetric_fog_density = 0.5
 volumetric_fog_albedo = Color(1, 0.734, 0.58, 1)
+volumetric_fog_gi_inject = 0.0
 volumetric_fog_ambient_inject = 1.0
-
-[sub_resource type="CameraEffects" id="CameraEffects_ptgpn"]
 
 [node name="Node3D" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( "Environment_52bou" )
+environment = SubResource("Environment_52bou")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.954491, 0.155375, -0.254567, 0, 0.85357, 0.520978, 0.298238, -0.497269, 0.814726, 0.56643, 0.924727, -0.192216)
@@ -48,220 +44,219 @@ shadow_enabled = true
 
 [node name="MarbleBusts" type="Node3D" parent="."]
 
-[node name="marble_bust_01_2k" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.36377, 0.249672)
 
-[node name="marble_bust_01_2k2" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k2" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(0.62179, 0.783184, 0, -0.783184, 0.62179, 0, 0, 0, 1, 0.234848, 0.330653, 0)
 
-[node name="marble_bust_01_2k3" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
-transform = Transform3D(0.962166, -0.272465, 0, 0.272465, 0.962166, 0, 0, 0, 1, 0.234848, 0.330653, -1.0143)
+[node name="marble_bust_01_2k3" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
+transform = Transform3D(-0.929381, 0.263181, 0.258819, 0.272465, 0.962166, 0, -0.249027, 0.0705191, -0.965926, 1.18847, -1.19788, -4.74941)
 
-[node name="marble_bust_01_2k4" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k4" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(0.870478, -0.366103, -0.328994, 0.257186, 0.90821, -0.330168, 0.419671, 0.202792, 0.884733, -0.315601, 0.409301, -1.0143)
 
-[node name="marble_bust_01_2k5" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k5" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(-0.304341, -0.89914, 0.314522, -0.926296, 0.202345, -0.317858, 0.222157, -0.388077, -0.894451, -0.957148, 0.465125, -1.0143)
 
-[node name="marble_bust_01_2k6" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k6" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(0.948263, 0.299403, 0.10562, 0.226812, -0.871639, 0.434513, 0.222157, -0.388077, -0.894451, -0.957148, 0.465125, -0.0759002)
 
-[node name="marble_bust_01_2k7" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k7" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(0.57257, -0.690607, 0.441845, -0.789184, -0.610294, 0.0687782, 0.222157, -0.388077, -0.894451, -0.437171, 0.206046, -0.0759002)
 
-[node name="marble_bust_01_2k8" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k8" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(-0.195802, 0.356164, 0.913679, -0.789184, -0.610294, 0.0687782, 0.582109, -0.707593, 0.400576, 0.0461221, 0.206046, -1.50601)
 
-[node name="marble_bust_01_2k9" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k9" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(0.686295, 0.691762, 0.224644, 0.72685, -0.641175, -0.246139, -0.0262336, 0.332207, -0.942842, -0.740135, 0.206046, -1.50601)
 
-[node name="marble_bust_01_2k10" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k10" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(-0.064817, -0.644694, 0.761688, 0.750527, -0.534535, -0.388564, 0.657654, 0.546482, 0.518507, 0.241094, -0.940162, -1.50601)
 
-[node name="marble_bust_01_2k11" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k11" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(0.753297, -0.482508, -0.446911, 0.005955, 0.684503, -0.728987, 0.657654, 0.546482, 0.518507, 0.604067, -0.940162, -1.50601)
 
-[node name="marble_bust_01_2k12" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k12" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(-0.450289, 0.836971, -0.311, -0.603931, -0.0289479, 0.796511, 0.657654, 0.546482, 0.518507, 1.13265, -0.5875, -1.50601)
 
-[node name="marble_bust_01_2k13" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k13" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(-0.748163, 0.393416, 0.534299, 0.0879961, -0.739312, 0.667589, 0.657654, 0.546482, 0.518507, 1.13265, -0.5875, -0.429903)
 
-[node name="marble_bust_01_2k14" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k14" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(0.551518, -0.818132, 0.162749, 0.513147, 0.178933, -0.839443, 0.657654, 0.546482, 0.518507, 0.680469, -0.327208, -0.433898)
 
-[node name="marble_bust_01_2k15" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k15" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(-0.612579, 0.761401, -0.212168, 0.513147, 0.178933, -0.839443, -0.601188, -0.623099, -0.500321, -0.284094, -0.327208, -0.433898)
 
-[node name="marble_bust_01_2k16" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k16" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(-0.864642, -0.144259, -0.481231, -0.340106, 0.873087, 0.349353, 0.369759, 0.465735, -0.803971, -2.15709, 0.253991, -2.09975)
 
-[node name="@marble_bust_01_2k16@26049" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="@marble_bust_01_2k16@26049" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(-0.465926, 0.742516, -0.481231, 0.674933, 0.649937, 0.349353, 0.57217, -0.162026, -0.803971, -1.66898, -0.100357, -1.28428)
 
-[node name="@marble_bust_01_2k16@26050" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="@marble_bust_01_2k16@26050" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(-0.617208, 0.674149, -0.40568, 0.765876, 0.632893, -0.113491, 0.180242, -0.380749, -0.906942, -1.26465, -0.296696, -1.61162)
 
-[node name="@marble_bust_01_2k16@26051" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="@marble_bust_01_2k16@26051" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(-0.453077, 0.890615, 0.0390744, -0.815731, -0.396505, -0.42115, -0.359589, -0.222688, 0.906149, -0.814457, -0.554531, -1.99312)
 
-[node name="@marble_bust_01_2k16@26052" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="@marble_bust_01_2k16@26052" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(-0.590609, -0.520105, 0.616986, 0.709034, -0.699532, 0.0890334, 0.385295, 0.490048, 0.781922, -1.26604, -0.226699, -2.74757)
 
-[node name="@marble_bust_01_2k16@26053" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="@marble_bust_01_2k16@26053" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(-0.943052, 0.277536, 0.183376, -0.290598, -0.955634, -0.0481318, 0.161882, -0.0986793, 0.981864, -1.75655, -0.190765, -2.43835)
 
-[node name="@marble_bust_01_2k16@26054" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="@marble_bust_01_2k16@26054" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(-0.616364, -0.24974, -0.74681, -0.52776, -0.572855, 0.627143, -0.584436, 0.780684, 0.221285, -1.38277, -0.462114, -1.00119)
 
-[node name="@marble_bust_01_2k16@26055" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="@marble_bust_01_2k16@26055" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(-0.00687886, -0.986607, 0.162969, 0.903179, -0.076081, -0.422469, 0.429209, 0.144284, 0.891607, -0.871221, -0.833473, -1.46875)
 
-[node name="@marble_bust_01_2k16@26056" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="@marble_bust_01_2k16@26056" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(0.166603, -0.157567, -0.973353, 0.806497, -0.546151, 0.226454, -0.567279, -0.822735, 0.0360874, -2.18298, -1.29759, -0.885243)
 
-[node name="@marble_bust_01_2k16@26057" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="@marble_bust_01_2k16@26057" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(-0.803086, 0.453067, -0.387019, 0.590364, 0.516949, -0.619867, -0.0807724, -0.726288, -0.682629, -2.41914, -1.12615, -0.669394)
 
-[node name="@marble_bust_01_2k16@26058" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="@marble_bust_01_2k16@26058" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(-0.378316, -0.82453, 0.420747, -0.47165, 0.562801, 0.678824, -0.796507, 0.0583642, -0.601806, -2.55586, -0.591105, -0.355064)
 
-[node name="@marble_bust_01_2k16@26059" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="@marble_bust_01_2k16@26059" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(0.221973, -0.95327, -0.204949, -0.0524038, -0.221552, 0.97374, -0.973644, -0.205404, -0.0991338, -3.07371, -0.215163, -1.22023)
 
-[node name="@marble_bust_01_2k16@26060" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="@marble_bust_01_2k16@26060" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(-0.373844, 0.374418, -0.848559, 0.905502, -0.0506988, -0.421302, -0.200764, -0.925873, -0.320083, -2.62468, -0.219489, -1.48591)
 
-[node name="@marble_bust_01_2k16@26061" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="@marble_bust_01_2k16@26061" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(0.98932, -0.0904001, -0.114343, -0.0840953, 0.286739, -0.954311, 0.119056, 0.953734, 0.276074, -1.99713, -0.675064, -2.0595)
 
-[node name="marble_bust_01_2k17" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k17" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(0.138053, 0.828152, 0.543236, 0.918814, -0.311857, 0.241921, 0.369759, 0.465735, -0.803971, -1.08675, -0.983793, -5.08058)
 
-[node name="marble_bust_01_2k1626049" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k1626049" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(0.817492, 0.191317, 0.543235, 0.0657948, -0.968062, 0.241921, 0.57217, -0.162026, -0.803971, -1.63776, -1.22917, -4.26512)
 
-[node name="marble_bust_01_2k1626050" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k1626050" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(0.971918, 0.210759, 0.104676, 0.151292, -0.900339, 0.408044, 0.180242, -0.380749, -0.906942, -2.01003, -1.48105, -4.59245)
 
-[node name="marble_bust_01_2k1626051" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k1626051" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(-0.479668, -0.78886, -0.384212, 0.800384, -0.572809, 0.17685, -0.359589, -0.222688, 0.906149, -2.4585, -1.74188, -4.97396)
 
-[node name="marble_bust_01_2k1626052" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k1626052" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(0.909392, -0.345522, -0.23156, 0.156696, 0.800292, -0.578774, 0.385295, 0.490048, 0.781922, -1.94872, -1.51486, -5.7284)
 
-[node name="marble_bust_01_2k1626053" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k1626053" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(0.220146, -0.966301, -0.133411, 0.961941, 0.23775, -0.134702, 0.161882, -0.0986793, 0.981864, -1.67223, -1.10812, -5.41919)
 
-[node name="marble_bust_01_2k1626054" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k1626054" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(-0.148635, -0.371088, 0.916625, 0.797711, 0.502819, 0.332914, -0.584436, 0.780684, 0.221285, -2.09417, -1.29602, -3.98202)
 
-[node name="marble_bust_01_2k1626055" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k1626055" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(0.785483, 0.42768, -0.447332, -0.445865, 0.892341, 0.0702315, 0.429209, 0.144284, 0.891607, -2.67163, -1.55318, -4.44958)
 
-[node name="marble_bust_01_2k1626056" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k1626056" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(0.614983, -0.394075, 0.683008, -0.547713, 0.409649, 0.729519, -0.567279, -0.822735, 0.0360874, -2.41728, -0.185183, -3.86608)
 
-[node name="marble_bust_01_2k1626057" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k1626057" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(0.912931, 0.220964, -0.34312, 0.40004, -0.650908, 0.645204, -0.0807724, -0.726288, -0.682629, -2.15069, -0.0664663, -3.65023)
 
-[node name="marble_bust_01_2k1626058" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k1626058" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(-0.219136, 0.899793, 0.377296, 0.563521, 0.432396, -0.703902, -0.796507, 0.0583642, -0.601806, -1.61902, -0.215745, -3.3359)
 
-[node name="marble_bust_01_2k1626059" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k1626059" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(-0.156419, 0.285043, 0.945666, -0.165986, 0.936248, -0.309659, -0.973644, -0.205404, -0.0991338, -1.03444, 0.0445884, -4.20106)
 
-[node name="marble_bust_01_2k1626060" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k1626060" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(0.971072, -0.231204, 0.0597014, -0.12928, -0.298837, 0.945507, -0.200764, -0.925873, -0.320083, -1.26281, -0.342051, -4.46674)
 
-[node name="marble_bust_01_2k1626061" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k1626061" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(-0.56773, 0.293504, -0.769115, -0.81456, -0.0651676, 0.576407, 0.119056, 0.953734, 0.276074, -1.97122, -0.657529, -5.04034)
 
-[node name="marble_bust_01_2k18" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k18" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(0.75942, -0.650028, -0.0272871, -0.535312, -0.600462, -0.594042, 0.369759, 0.465735, -0.803971, 2.25329, -1.52544, -5.08058)
 
-[node name="marble_bust_01_2k1626062" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k1626062" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(-0.307673, -0.951101, -0.027287, -0.760236, 0.262973, -0.594042, 0.57217, -0.162026, -0.803971, 2.28096, -0.922903, -4.26512)
 
-[node name="@marble_bust_01_2k1626062@26254" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="@marble_bust_01_2k1626062@26254" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(-0.300479, -0.89928, 0.317816, -0.936603, 0.215233, -0.276496, 0.180242, -0.380749, -0.906942, 2.2227, -0.477215, -4.59245)
 
-[node name="@marble_bust_01_2k1626062@26255" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="@marble_bust_01_2k1626062@26255" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(0.930485, -0.158372, 0.330327, 0.0699492, 0.96194, 0.264157, -0.359589, -0.222688, 0.906149, 2.19061, 0.0405875, -4.97396)
 
-[node name="@marble_bust_01_2k1626062@26256" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="@marble_bust_01_2k1626062@26256" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(-0.267618, 0.870265, -0.413545, -0.883136, -0.0499196, 0.466454, 0.385295, 0.490048, 0.781922, 2.165, -0.51686, -5.7284)
 
-[node name="@marble_bust_01_2k1626062@26257" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="@marble_bust_01_2k1626062@26257" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(0.761168, 0.645718, -0.060599, -0.628027, 0.757173, 0.179641, 0.161882, -0.0986793, 0.981864, 2.40462, -0.946355, -5.41919)
 
-[node name="@marble_bust_01_2k1626062@26258" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="@marble_bust_01_2k1626062@26258" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(0.779692, 0.615821, -0.113343, -0.224756, 0.106292, -0.968601, -0.584436, 0.780684, 0.221285, 2.42582, -0.484952, -3.98202)
 
-[node name="@marble_bust_01_2k1626062@26259" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="@marble_bust_01_2k1626062@26259" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(-0.750687, 0.605915, 0.26332, -0.502244, -0.782336, 0.368376, 0.429209, 0.144284, 0.891607, 2.45482, 0.14651, -4.44958)
 
-[node name="@marble_bust_01_2k1626062@26260" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="@marble_bust_01_2k1626062@26260" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(-0.765291, 0.542843, 0.345907, -0.304179, 0.168608, -0.937575, -0.567279, -0.822735, 0.0360874, 3.56363, -0.694133, -3.86608)
 
-[node name="@marble_bust_01_2k1626062@26261" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="@marble_bust_01_2k1626062@26261" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(-0.051684, -0.680893, 0.730557, -0.995392, 0.0942898, 0.01746, -0.0807724, -0.726288, -0.682629, 3.55024, -0.985646, -3.65023)
 
-[node name="@marble_bust_01_2k1626062@26262" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="@marble_bust_01_2k1626062@26262" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(0.601961, -0.0168712, -0.798348, -0.0567483, -0.998153, -0.0216949, -0.796507, 0.0583642, -0.601806, 3.17845, -1.39398, -3.3359)
 
-[node name="@marble_bust_01_2k1626062@26263" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="@marble_bust_01_2k1626062@26263" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(-0.0782483, 0.709108, -0.700746, 0.214232, -0.674519, -0.706491, -0.973644, -0.205404, -0.0991338, 3.14908, -2.03323, -4.20106)
 
-[node name="@marble_bust_01_2k1626062@26264" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="@marble_bust_01_2k1626062@26264" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(-0.550898, -0.163475, 0.818406, -0.810065, 0.340639, -0.477242, -0.200764, -0.925873, -0.320083, 2.90585, -1.65576, -4.46674)
 
-[node name="@marble_bust_01_2k1626062@26265" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="@marble_bust_01_2k1626062@26265" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(-0.473603, -0.189831, 0.860038, 0.872654, -0.233142, 0.429091, 0.119056, 0.953734, 0.276074, 2.94144, -0.881097, -5.04034)
 
-[node name="marble_bust_01_2k19" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k19" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(-0.789197, 0.104929, 0.60511, -0.535312, -0.600462, -0.594042, 0.301013, -0.792739, 0.530053, 1.23169, -1.52544, -4.429)
 
-[node name="marble_bust_01_2k1626063" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k1626063" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(-0.206896, 0.768789, 0.60511, -0.760236, 0.262973, -0.594042, -0.61582, -0.582931, 0.530053, 0.617931, -0.922903, -4.96663)
 
-[node name="marble_bust_01_2k162606226254" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k162606226254" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(0.0740679, 0.892884, 0.444152, -0.936603, 0.215233, -0.276496, -0.342475, -0.395515, 0.85222, 0.896552, -0.477215, -4.78522)
 
-[node name="marble_bust_01_2k162606226255" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k162606226255" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(-0.374202, 0.270771, -0.886936, 0.0699492, 0.96194, 0.264157, 0.924706, 0.0368074, -0.3789, 1.19679, 0.0405875, -4.54766)
 
-[node name="marble_bust_01_2k162606226256" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k162606226256" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(-0.0979829, -0.952763, -0.287475, -0.883136, -0.0499195, 0.466454, -0.458771, 0.299584, -0.836528, 1.76463, -0.51686, -4.05026)
 
-[node name="marble_bust_01_2k162606226257" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k162606226257" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(-0.638759, -0.369724, -0.674753, -0.628027, 0.757173, 0.179641, 0.444487, 0.538511, -0.715848, 1.37516, -0.946355, -4.08699)
 
-[node name="marble_bust_01_2k162606226258" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k162606226258" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(-0.107041, -0.99071, -0.0838803, -0.224756, 0.106292, -0.968601, 0.968518, -0.0848267, -0.234046, 0.312343, -0.484952, -5.05462)
 
-[node name="marble_bust_01_2k162606226259" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k162606226259" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(0.200428, -0.519722, -0.830493, -0.502244, -0.782336, 0.368376, -0.841177, 0.343277, -0.417829, 0.633557, 0.14651, -4.71363)
 
-[node name="marble_bust_01_2k162606226260" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k162606226260" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(0.93729, 0.228799, -0.262941, -0.304179, 0.168608, -0.937575, -0.170182, 0.958761, 0.227631, -0.550549, -0.694133, -4.30398)
 
-[node name="marble_bust_01_2k162606226261" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k162606226261" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(0.0942726, 0.995545, -0.00180525, -0.995391, 0.0942898, 0.01746, 0.0175524, 0.000151128, 0.999846, -0.698836, -0.985646, -4.4614)
 
-[node name="marble_bust_01_2k162606226262" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k162606226262" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(0.169228, -0.0310321, 0.985089, -0.0567483, -0.998153, -0.0216949, 0.983942, -0.0522305, -0.170676, -0.673795, -1.39398, -4.94761)
 
-[node name="marble_bust_01_2k162606226263" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k162606226263" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(0.763735, -0.335237, 0.551657, 0.214232, -0.674519, -0.706491, 0.608945, 0.657754, -0.443335, -0.0226305, -2.03323, -4.37721)
 
-[node name="marble_bust_01_2k162606226264" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k162606226264" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(0.523286, 0.787189, -0.326352, -0.810065, 0.340639, -0.477242, -0.264511, 0.5141, 0.815926, 0.337548, -1.65576, -4.37289)
 
-[node name="marble_bust_01_2k162606226265" parent="MarbleBusts" instance=ExtResource( "2_p1o4a" )]
+[node name="marble_bust_01_2k162606226265" parent="MarbleBusts" instance=ExtResource("2_p1o4a")]
 transform = Transform3D(0.237125, -0.565832, -0.789687, 0.872655, -0.233142, 0.429091, -0.426903, -0.790872, 0.438493, 0.731607, -0.881097, -3.95457)
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.998241, -0.00531994, 0.0590511, 0, 0.995966, 0.0897271, -0.0592903, -0.0895693, 0.994214, 0.0391397, -0.0244863, 0.86455)
-effects = SubResource( "CameraEffects_ptgpn" )
-fov = 60.0
+transform = Transform3D(-0.79102, 0.113086, 0.601247, 0, 0.982767, -0.184845, -0.61179, -0.146216, -0.777389, 1.72905, -1.10782, -5.5439)
+fov = 55.0

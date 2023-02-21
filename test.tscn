@@ -3,30 +3,21 @@
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_xe6u6"]
 
 [sub_resource type="Sky" id="2"]
-sky_material = SubResource( "PhysicalSkyMaterial_xe6u6" )
+sky_material = SubResource("PhysicalSkyMaterial_xe6u6")
 
 [sub_resource type="Environment" id="3"]
 background_mode = 2
-sky = SubResource( "2" )
+sky = SubResource("2")
 tonemap_mode = 3
 tonemap_white = 6.0
 ssao_enabled = true
 ssil_enabled = true
 sdfgi_enabled = true
-sdfgi_read_sky_light = true
-sdfgi_bounce_feedback = 0.5
 glow_enabled = true
 glow_intensity = 0.1
 glow_blend_mode = 1
 volumetric_fog_enabled = true
 volumetric_fog_density = 0.0
-
-[sub_resource type="CameraEffects" id="CameraEffects_8osje"]
-dof_blur_far_enabled = true
-dof_blur_far_distance = 15.0
-dof_blur_far_transition = 20.0
-dof_blur_near_enabled = true
-dof_blur_amount = 1.0
 
 [sub_resource type="SphereMesh" id="4"]
 
@@ -37,6 +28,7 @@ shading_mode = 0
 albedo_color = Color(1, 2, 3, 1)
 
 [sub_resource type="BoxMesh" id="7"]
+size = Vector3(2, 2, 2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_41hiw"]
 metallic = 1.0
@@ -90,100 +82,96 @@ tracks/0/keys = {
 "values": [Vector3(0, 0, 0), Vector3(0, 6.28319, 0)]
 }
 
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ej07f"]
+_data = {
+"RESET": SubResource("Animation_xqaaj"),
+"move": SubResource("Animation_yb1bt")
+}
+
 [node name="Node3D" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( "3" )
+environment = SubResource("3")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.569338, 0.0920953, 0.816929, 0.652575, 0.654995, 0.380956, -0.5, 0.75, -0.433013, 0, 0, 0)
 shadow_enabled = true
-shadow_normal_bias = 2.0
 
 [node name="Pivot" type="Node3D" parent="."]
 
 [node name="Camera3D" type="Camera3D" parent="Pivot"]
 transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 3.25, 4.375)
-effects = SubResource( "CameraEffects_8osje" )
 
 [node name="Sphere" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-gi_mode = 1
-mesh = SubResource( "4" )
-surface_material_override/0 = null
+mesh = SubResource("4")
 
 [node name="Sphere2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
-gi_mode = 1
-mesh = SubResource( "4" )
-surface_material_override/0 = null
+mesh = SubResource("4")
 
 [node name="GlowSphere" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -2.44931, 0.802835, -2.03234)
-mesh = SubResource( "SphereMesh_xv357" )
-surface_material_override/0 = SubResource( "StandardMaterial3D_wvk6a" )
+mesh = SubResource("SphereMesh_xv357")
+surface_material_override/0 = SubResource("StandardMaterial3D_wvk6a")
 
 [node name="GlowSphere2" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -2.44931, 2.8687, -8.22716)
-mesh = SubResource( "SphereMesh_xv357" )
-surface_material_override/0 = SubResource( "StandardMaterial3D_wvk6a" )
+mesh = SubResource("SphereMesh_xv357")
+surface_material_override/0 = SubResource("StandardMaterial3D_wvk6a")
 
 [node name="GlowSphere3" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -1.38303, 1.76078, -8.22716)
-mesh = SubResource( "SphereMesh_xv357" )
-surface_material_override/0 = SubResource( "StandardMaterial3D_wvk6a" )
+mesh = SubResource("SphereMesh_xv357")
+surface_material_override/0 = SubResource("StandardMaterial3D_wvk6a")
 
 [node name="GlowSphere4" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 1.21126, 2.15801, -8.22716)
-mesh = SubResource( "SphereMesh_xv357" )
-surface_material_override/0 = SubResource( "StandardMaterial3D_wvk6a" )
+mesh = SubResource("SphereMesh_xv357")
+surface_material_override/0 = SubResource("StandardMaterial3D_wvk6a")
 
 [node name="GlowSphere5" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 6.53824, 1.98076, -8.22716)
-mesh = SubResource( "SphereMesh_xv357" )
-surface_material_override/0 = SubResource( "StandardMaterial3D_wvk6a" )
+mesh = SubResource("SphereMesh_xv357")
+surface_material_override/0 = SubResource("StandardMaterial3D_wvk6a")
 
 [node name="GlowSphere6" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 5.05451, 0.394525, -8.22716)
-mesh = SubResource( "SphereMesh_xv357" )
-surface_material_override/0 = SubResource( "StandardMaterial3D_wvk6a" )
+mesh = SubResource("SphereMesh_xv357")
+surface_material_override/0 = SubResource("StandardMaterial3D_wvk6a")
 
 [node name="GlowSphere7" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.884644, 0.272131, -8.22716)
-mesh = SubResource( "SphereMesh_xv357" )
-surface_material_override/0 = SubResource( "StandardMaterial3D_wvk6a" )
+mesh = SubResource("SphereMesh_xv357")
+surface_material_override/0 = SubResource("StandardMaterial3D_wvk6a")
 
 [node name="GlowSphere8" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.0921825, 0.019958, -8.22716)
-mesh = SubResource( "SphereMesh_xv357" )
-surface_material_override/0 = SubResource( "StandardMaterial3D_wvk6a" )
+mesh = SubResource("SphereMesh_xv357")
+surface_material_override/0 = SubResource("StandardMaterial3D_wvk6a")
 
 [node name="GlowSphere9" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -1.02597, -0.121001, -8.22716)
-mesh = SubResource( "SphereMesh_xv357" )
-surface_material_override/0 = SubResource( "StandardMaterial3D_wvk6a" )
+mesh = SubResource("SphereMesh_xv357")
+surface_material_override/0 = SubResource("StandardMaterial3D_wvk6a")
 
 [node name="GlowSphere10" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -2.86481, 0.398816, -8.22716)
-mesh = SubResource( "SphereMesh_xv357" )
-surface_material_override/0 = SubResource( "StandardMaterial3D_wvk6a" )
+mesh = SubResource("SphereMesh_xv357")
+surface_material_override/0 = SubResource("StandardMaterial3D_wvk6a")
 
 [node name="MetallicBox" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -0.5, -1)
-gi_mode = 1
-mesh = SubResource( "7" )
-surface_material_override/0 = SubResource( "StandardMaterial3D_41hiw" )
+mesh = SubResource("7")
+surface_material_override/0 = SubResource("StandardMaterial3D_41hiw")
 
 [node name="MetallicBox2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.06833, -0.429557, -1.09016)
-gi_mode = 1
-mesh = SubResource( "7" )
-surface_material_override/0 = SubResource( "StandardMaterial3D_w8btu" )
+mesh = SubResource("7")
+surface_material_override/0 = SubResource("StandardMaterial3D_w8btu")
 
 [node name="Ground" type="MeshInstance3D" parent="."]
-gi_mode = 1
-mesh = SubResource( "5" )
-surface_material_override/0 = null
+mesh = SubResource("5")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.24225, 0.687365, 0.734023)
@@ -199,12 +187,11 @@ shadow_bias = 0.02
 
 [node name="FogVolume" type="FogVolume" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.16319, 0.1875, -0.1875)
-extents = Vector3(1, 1, 2)
-material = SubResource( "FogMaterial_1ay4e" )
+size = Vector3(2, 2, 4)
+material = SubResource("FogMaterial_1ay4e")
 
 [node name="CSGPolygon3D" type="CSGPolygon3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.507166, -1.90052, -1.18673)
-gi_mode = 1
 polygon = PackedVector2Array(-5.15428, 2.3028, -5.1389, 2.4898, -5.01001, 2.5904, -4.89701, 2.62726, -4.80821, 2.61407, -4.76602, 2.52562, -4.80037, 2.37581, -4.74728, 2.32716, -4.68036, 2.40093, -4.65707, 2.50278, -4.6177, 2.62828, -4.50001, 2.63362, -4.45325, 2.53937, -4.44487, 2.38375, -4.40115, 2.33216, -4.29024, 2.41174, -4.28925, 2.52257, -4.37414, 2.71314, -4.55615, 2.74244, -4.79086, 2.7229, -5.01808, 2.67821, -5.18971, 2.57589, -5.25643, 2.47771, -5.39499, 2.53602, -5.37026, 2.64656, -5.14997, 2.79713, -4.84153, 2.87367, -4.4862, 2.8942, -4.14573, 2.74799, -4.0531, 2.57737, -4.08088, 2.33401, -4.32184, 2.16289, -4.67416, 2.06768, -5.08355, 2.01787, -5.2534, 2.07174, -5.26344, 2.17831, -5.07225, 2.20423, -4.8492, 2.19047, -4.78435, 2.28838, -4.94176, 2.31498, -5.11098, 2.2798)
 
 [node name="OmniLight3D2" type="OmniLight3D" parent="."]
@@ -218,8 +205,9 @@ inner_radius = 1.0
 outer_radius = 2.0
 sides = 64
 ring_sides = 32
-material = SubResource( "StandardMaterial3D_pt8vh" )
+material = SubResource("StandardMaterial3D_pt8vh")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/RESET = SubResource( "Animation_xqaaj" )
-anims/move = SubResource( "Animation_yb1bt" )
+libraries = {
+"": SubResource("AnimationLibrary_ej07f")
+}

@@ -20,7 +20,6 @@ PhotoMode="*res://addons/photo_mode/photo_mode.tscn"
 
 [display]
 
-window/dpi/allow_hidpi=true
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
